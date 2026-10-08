@@ -100,6 +100,24 @@ details.ideas .chips{margin-top:8px}
 .tabs .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:6px;vertical-align:middle}
 .act{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
 .act.fixed{background:var(--indigo-soft);border-color:transparent}
+.pdc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pdc div{border:1.5px solid var(--line);border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.pdc b{font-family:var(--display);color:var(--indigo)}
+.pdc span{font-size:.88rem;color:var(--muted)}
+@media (max-width:520px){ .pdc{grid-template-columns:1fr} }
+.grade{border:1.5px solid var(--indigo);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.grade ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.stage{font-family:var(--display);font-weight:700;color:var(--indigo);border-bottom:2px solid var(--indigo);padding-bottom:4px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.stage small{font-family:var(--body);font-weight:400;color:var(--muted);font-size:.88rem}
+.dcheck{list-style:none;margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;gap:5px;font-size:.93rem}
+.dcheck li{display:flex;gap:8px;color:var(--muted)}
+.dcheck li.on{color:var(--ink)}
+.dcheck li::before{content:"\25CB";flex:none}
+.dcheck li.on::before{content:"\2713";color:var(--ok);font-weight:700}
+.dcheck b{color:var(--ink)}
+table.dt{border-collapse:collapse;width:100%;font-size:.93rem;font-variant-numeric:tabular-nums}
+table.dt th,table.dt td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+table.dt th{color:var(--muted);font-weight:400;font-size:.85rem}
 .act .n{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
 
 dl.sum{margin:0;display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:8px 16px}
@@ -167,9 +185,15 @@ var SMART=[
  {k:"A",name:"Achievable",def:"An achievable goal is possible for you in six weeks, with your real life.",items:["I have enough free time for this goal, after homework and classes.","My goal matches my English level now (not too easy, not too hard).","I have the materials I need (books, apps, websites, partners).","In my busiest week at university, I can still do this goal."],tip:"Make your goal smaller. It is better to finish a small goal than to stop a big one."},
  {k:"R",name:"Relevant",def:"A relevant goal helps you become the person in your Future Me drawing.",items:["This goal is a real step toward the Future Me in my drawing.","I really care about this goal. Nobody told me to choose it.","This goal fits my direction (a test, study abroad, or my own goal).","When I look at my drawing, I can see how this goal fits."],tip:"Look at your drawing one more time and choose a goal that helps that future you."},
  {k:"T",name:"Time-bound",def:"A time-bound goal has a start date, an end date, and weekly steps.",items:["My plan has a start date and an end date, six weeks apart.","I know which days and times I will study.","I have a small step for each week, not only one big deadline.","I chose this time myself. It is outside homework and classes."],tip:"Go back to \"My time\" and choose your days and minutes."}];
-var REFLECT=["How many minutes did I really give this week?","What did I learn this week?","What worked well?","What was difficult?","Did I move one small step closer to my drawing? How?","What will I change next week?"];
-var LOOKBACK=["Did I reach my SMART goal? (Yes / Almost / Not yet)","How do I know?","Which activity helped me most?","What was difficult?","How did my learning community help me?","I am now one step closer to my Future Me because ...","My next step is ..."];
+var DOHEAD=["Activity","Did I do it? (Yes / Partly / No)","What I really did (days, minutes, amount)"];
+var REFLECT=["Did I follow my plan this week? (Yes / Mostly / Not really) Why?","What was the result of my progress check?","What did I learn this week?","What worked well?","What was difficult?","Did I move one small step closer to my drawing? How?","What will I change in next week's plan?"];
+var LOOKBACK=["Did I reach my SMART goal? (Yes / Almost / Not yet)","How do I know?","Which activity helped me most?","What was difficult?","How well did I follow my plan in the six weeks? (Plan, Do, Check)","How did my learning community help me?","I am now one step closer to my Future Me because ...","My next step is ..."];
 
+var PDC='<div class="pdc"><div><b>1. Plan</b><span>Write what, when, how long, and how you will check.</span></div><div><b>2. Do</b><span>Follow your plan during the week and record what you really did.</span></div><div><b>3. Check</b><span>Compare your plan with what you did. Change next week\'s plan.</span></div></div>';
+var GRADE='<div class="grade"><h3>How your plan is graded</h3><ol><li><b>How detailed your plan is.</b> A detailed plan says what you will do, on which days, for how many minutes, and how you will check.</li><li><b>How well you follow your plan.</b> Each week you Plan, Do, and Check. You record what you really did and compare it with your plan.</li></ol>'+PDC+'<p class="hint">An honest record is better than a perfect one. If you could not follow your plan, write why and change the next week.</p></div>';
+function detail(n){var a=String(S["w"+n+"a2"]||""),wh=String(S["w"+n+"when"]||""),ck=String(S["w"+n+"check"]||"");
+  return [["Activity 2 says what I will do",!!a.trim()],["Days and times are written",!!wh.trim()],["My plan has a number (minutes, pages, words, or times)",/\d/.test(a+" "+wh)],["I wrote how I will check my progress",!!ck.trim()]]}
+function dscore(n){return detail(n).filter(function(x){return x[1]}).length}
 var S={};
 try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
 var storageOK=true;
@@ -207,8 +231,8 @@ var step=Math.min(Math.max(parseInt(S._step,10)||0,0),STEPS.length-1), week=1;
 
 var R=[
 function(){return head(0,"Plan your next six weeks","This page helps you make your own English learning plan, one step at a time. At each step, you can click an answer in the menu or <mark>type your own answer</mark> in the box. You can also click an answer first and then change the words. At the end, you download a Word file that you can keep editing.")
- +'<div class="free"><h3>This plan is <mark>your choice</mark>, in <mark>your free time</mark></h3><ul><li>Nobody gives you a grade for this plan. You do it to reach your own goal.</li><li>The time in this plan is extra. Homework time and class time do not count.</li><li>The plan is six weeks long for everyone. You decide how many minutes you give.</li><li>Each week you plan two or three activities. One of them is your learning community meeting.</li></ul></div>'
- +'<div class="row">'+field("name","Name",{ph:"Your name"})+field("cls","Class",{ph:"Your class"})+'</div>'
+ +'<div class="free"><h3>This plan is <mark>your choice</mark>, in <mark>your free time</mark></h3><ul><li>You choose the goal, the activities, and the time.</li><li>The time in this plan is extra. Homework time and class time do not count.</li><li>The plan is six weeks long for everyone. You decide how many minutes you give.</li><li>Each week you plan two or three activities. One of them is your learning community meeting.</li></ul></div>'
+ +GRADE+'<div class="row">'+field("name","Name",{ph:"Your name"})+field("cls","Class",{ph:"Your class"})+'</div>'
  +'<div class="row"><div class="field"><span class="qlabel">Start date</span><span class="hint">The same for everyone</span><p>'+startDate()+'</p></div><div class="field"><span class="qlabel">End date</span><span class="hint">Six weeks after the start</span><p data-live="end"></p></div></div>'
  +'<div class="actions"><button type="button" class="btn link" data-act="example">Show me an example plan</button><button type="button" class="btn link" data-act="reset">Start again with an empty plan</button></div>'},
 
@@ -249,28 +273,33 @@ function(){var h=head(5,"Give your six weeks a theme","A theme is a short title 
  for(var i=1;i<=6;i++)h+=field("focus"+i,"Week "+i+" ("+weekRange(i)+")",{hint:FOCUSQ[i-1],fold:"Show ideas",chips:[FOCUS[i-1],"Vocabulary","Listening","Speaking","Reading","Writing","Pronunciation","Practice test","Review"]});
  return h},
 
-function(){var w=week,h=head(6,"Plan each week","Plan two or three activities for each week. Activity 1 is always your learning community meeting. You choose Activity 2. Activity 3 is extra.")
+function(){var w=week,h=head(6,"Plan each week","Plan two or three activities for each week. Activity 1 is always your learning community meeting. You choose Activity 2. Activity 3 is extra. Your plan is graded on its detail, so write what, when, and how long.")+PDC
  +'<div class="tabs" role="group" aria-label="Weeks">';
- for(var i=1;i<=6;i++)h+='<button type="button" data-week="'+i+'" aria-pressed="'+(i===w)+'">Week '+i+(S["w"+i+"a2"]?'<span class="dot" title="planned"></span>':'')+'</button>';
+ for(var i=1;i<=6;i++)h+='<button type="button" data-week="'+i+'" aria-pressed="'+(i===w)+'">Week '+i+(dscore(i)===4?'<span class="dot" title="detailed"></span>':'')+'</button>';
  h+='</div><div><h3>Week '+w+': '+esc(v("focus"+w))+'</h3><p class="hint">'+weekRange(w)+(timeLine()?' · My time: '+esc(timeLine()):'')+'</p></div>'
+ +'<div class="stage">Plan <small>Write this now.</small></div>'
  +'<div class="act fixed"><span class="n">Activity 1</span><b>'+LC+'</b><p class="hint">'+LCNOTE+'</p></div>'
  +'<div class="act"><span class="n">Activity 2 · my choice</span>'+field("w"+w+"a2","What I will do",{fold:"Show ideas",chips:ACTS[gt()].concat(ACT_ALL)})+'</div>'
  +'<div class="act"><span class="n">Activity 3 · extra, only if I want</span>'+field("w"+w+"a3","What I will do",{fold:"Show ideas",chips:ACTS[gt()].concat(ACT_ALL)})+'</div>'
  +field("w"+w+"when","Days and times this week",{ph:"Example: Tuesday and Friday, 20 minutes, on the train",fold:"Show ideas",chips:["Monday, Wednesday, Friday, 20 minutes","Tuesday and Thursday, 30 minutes","Every weekday, 15 minutes on the train","Saturday and Sunday, 45 minutes","Three days this week, 20 minutes before bed","Same days and times as last week"]})
+ +'<div class="stage">Do <small>This part comes later, in your Word file.</small></div><p class="hint">During the week, follow your plan and record what you really did in the Do table of your Word file.</p>'
+ +'<div class="stage">Check <small>Decide now how you will check. Write the result at the end of the week.</small></div>'
  +field("w"+w+"check","How I will check my progress",{fold:"Show ideas",chips:CHECKS})
+ +'<div data-live="detail"></div>'
  +'<div class="actions">'+(w===1?'<button type="button" class="btn ghost" data-act="copyweek">Copy Week 1 to Weeks 2 to 6</button>':'')+(w<6?'<button type="button" class="btn ghost" data-week="'+(w+1)+'">Go to Week '+(w+1)+'</button>':'')+'</div>'
- +'<p class="hint">After each week you write a short reflection. The Word file has a space for it.</p>';
+ ;
  return h},
 
 function(){function dd(t,val){return '<dt>'+esc(t)+'</dt><dd>'+(val?esc(val):'<span class="empty">not written yet</span>')+'</dd>'}
  var miss=[];if(!v("name"))miss.push("your name");if(!v("final"))miss.push("your final SMART goal");if(!num("days")||!num("mins"))miss.push("your time");
- var planned=0;for(var i=1;i<=6;i++)if(S["w"+i+"a2"])planned++;
+ var thin=0;for(var i=1;i<=6;i++)if(dscore(i)<4)thin++;if(thin)miss.push("some detail in "+thin+" week"+(thin>1?"s":""));
  var h=head(7,"Check and download","Read your plan. Go back to change anything. Then download it as a Word file and keep editing it each week.")
  +(miss.length?'<p class="note">Still empty: '+miss.join(", ")+'. You can also fill these in later in Word.</p>':'')
- +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("Six weeks",startDate()?startDate()+" to "+endDate():"")+dd("My direction",[S.gtype?GT[S.gtype].label:"",v("gdetail")].filter(Boolean).join(": "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+dd("Weeks planned",planned+" of 6")+'</dl>'
+ +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("Six weeks",startDate()?startDate()+" to "+endDate():"")+dd("My direction",[S.gtype?GT[S.gtype].label:"",v("gdetail")].filter(Boolean).join(": "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+'</dl>'
+ +'<div class="field"><span class="qlabel">Detail check</span><span class="hint">Your plan is graded on its detail. A week with 4 of 4 has an activity, days and times, a number, and a way to check.</span><table class="dt"><tr><th>Week</th><th>Activity 2</th><th>Detail</th></tr>'+[1,2,3,4,5,6].map(function(i){return '<tr><td>Week '+i+'</td><td>'+(S["w"+i+"a2"]?esc(S["w"+i+"a2"]):'<span class="empty">not written yet</span>')+'</td><td>'+dscore(i)+' of 4</td></tr>'}).join("")+'</table></div>'
  +'<div class="actions"><button type="button" class="btn" data-act="download" id="dl">Download Word file</button><button type="button" class="btn ghost" data-act="copy">Copy my plan as text</button></div>'
  +'<p class="status" id="status" role="status"></p><textarea id="copyout" hidden readonly aria-label="My plan as text"></textarea>'
- +'<p class="hint">Remember: this plan is your choice and your free time. Change it when your life changes.</p>';
+ +'<p class="hint">After you download: each week, fill in the Do table and the Check table in your Word file. Your plan is graded on its detail and on how well you follow it.</p>';
  return h}
 ];
 
@@ -281,6 +310,8 @@ function live(){
     if(d&&m){h='<div class="total"><span><b>'+(d*m)+'</b> minutes each week</span><span><b>'+(d*m*6)+'</b> minutes in six weeks</span></div>';
       if(d>=7||d*m>300)h+='<p class="note">This is a big plan. Last semester, many students wrote that studying every day was too difficult. Can you keep this in your busiest week? If you are not sure, choose fewer days.</p>';}
     t.innerHTML=h}
+  var dc=document.querySelector('[data-live="detail"]');
+  if(dc){var dl=detail(week),sc=dscore(week);dc.innerHTML='<ul class="dcheck"><li class="on" style="list-style:none"><b>Detail check for Week '+week+': '+sc+' of 4</b></li>'+dl.map(function(x){return '<li class="'+(x[1]?"on":"")+'">'+x[0]+'</li>'}).join("")+'</ul>'}
   SMART.forEach(function(g){var el=document.querySelector('[data-live="tip'+g.k+'"]');if(!el)return;var no=false;g.items.forEach(function(_,i){if(S["c"+g.k+i]==="n")no=true});
     var h=no?'<p class="note">'+esc(g.tip)+'</p>':"";
     if(g.k==="M"&&v("draft")&&!/\d/.test(v("final")||v("draft")))h+='<p class="note">I cannot find a number in your goal yet. Add minutes, words, pages, times, or a score.</p>';
@@ -345,11 +376,11 @@ function plan(){var p={title:"My 6-Week English Learning Plan",who:[v("name")&&"
   for(var i=1;i<=6;i++)p.weeks.push({n:i,range:weekRange(i),focus:v("focus"+i),a2:v("w"+i+"a2"),a3:v("w"+i+"a3"),when:v("w"+i+"when"),check:v("w"+i+"check")});
   return p}
 
-function planText(){var p=plan(),o=[p.title,p.who,p.dates?"Six weeks: "+p.dates:"",p.theme?"Theme: "+p.theme:"","","This plan is my choice. I do it in my free time, outside homework and classes.","","PART 1: MY FUTURE ME"];
+function planText(){var p=plan(),o=[p.title,p.who,p.dates?"Six weeks: "+p.dates:"",p.theme?"Theme: "+p.theme:"","","This plan is my choice. I do it in my free time, outside homework and classes.","It is graded on (1) how detailed my plan is and (2) how well I follow it: Plan, Do, Check.","","PART 1: MY FUTURE ME"];
   p.part1.forEach(function(r){o.push(r[0],"  "+r[1])});o.push("","PART 2: MY DIRECTION");p.part2.forEach(function(r){o.push(r[0]+": "+r[1])});
   o.push("","PART 3: MY TIME");p.time.forEach(function(r){o.push(r[0]+": "+r[1])});
   o.push("","PART 4: MY SMART GOAL","First draft: "+p.draft,"Final goal: "+p.final,"This goal will help me become the person in my drawing because "+p.because,"","PART 5: MY WEEKLY PLAN");
-  p.weeks.forEach(function(w){o.push("","Week "+w.n+" ("+w.range+"): "+w.focus,"  Activity 1: "+LC,"  Activity 2: "+w.a2,"  Activity 3 (extra): "+w.a3,"  Days and times: "+w.when,"  How I will check: "+w.check,"  Reflection:");REFLECT.forEach(function(q){o.push("    "+q)})});
+  p.weeks.forEach(function(w){o.push("","Week "+w.n+" ("+w.range+"): "+w.focus,"  Activity 1: "+LC,"  Activity 2: "+w.a2,"  Activity 3 (extra): "+w.a3,"  Days and times: "+w.when,"  How I will check: "+w.check,"  DO (what I really did): ","  CHECK:");REFLECT.forEach(function(q){o.push("    "+q)})});
   o.push("","PART 6: LOOKING BACK");LOOKBACK.forEach(function(q){o.push("  "+q)});return o.join("\n")}
 
 /* ---------- Word (.docx) ---------- */
@@ -370,6 +401,9 @@ function documentXml(){var p=plan(),b="";
   b+=para(p.who);
   b+=para("Six weeks: "+(p.dates||"            to            ")+(p.theme?"    Theme: "+p.theme:""));
   b+=para([run("This plan is my choice. ",{b:1}),run("I work on it in my free time. It is outside my homework and my classes. The six weeks are fixed, and I decide how many minutes I give.")],{fill:"FFF1B8"});
+  b+=para("How this plan is graded",{style:"Heading2"});
+  b+=table([["1. Detail","How detailed is my plan? It says what I will do, on which days, for how many minutes, and how I will check."],["2. Following the plan","How well do I follow my plan? Each week I Plan, Do, and Check. I record what I really did and compare it with my plan."]],[2600,W-2600],{labelCol:1});
+  b+=table([["PLAN","DO","CHECK"],["Before the week: write what, when, how long, and how I will check.","During the week: follow the plan and record what I really did.","After the week: compare plan and result, then change next week's plan."]],[3008,3009,3009],{header:1});
   b+=para("Part 1: My Future Me",{style:"Heading1"});
   b+=table([["Question","My answer"]].concat(p.part1),[3900,W-3900],{header:1});
   b+=para("Part 2: My direction",{style:"Heading1"});
@@ -384,12 +418,18 @@ function documentXml(){var p=plan(),b="";
   b+=table([["In six weeks, I will ...",p.final],["This goal will help me become the person in my drawing because ...",p.because]],[3200,W-3200],{labelCol:1,minH:700});
   b+=para("Part 5: My weekly plan",{style:"Heading1",pb:1});
   b+=para("Each week I plan two or three activities. Activity 1 is always my learning community meeting. My learning community has its own plan and schedule.");
+  b+=para("Every week has three parts. PLAN is written before the week. DO is filled in during the week. CHECK is written at the end of the week. An honest record is better than a perfect one.");
+  var pm=num("days")*num("mins");
   p.weeks.forEach(function(w,i){
-    b+=para("Week "+w.n+": "+w.focus+(w.range?"  ("+w.range+")":""),{style:"Heading2",pb:i>0&&i%2===0});
-    b+=table([["Activity","What I will do","Done"],["1. Learning community",LC,""],["2. My choice",w.a2,""],["3. My choice (extra)",w.a3,""]],[2400,W-2400-1000,1000],{header:1});
+    b+=para("Week "+w.n+": "+w.focus+(w.range?"  ("+w.range+")":""),{style:"Heading2",pb:i>0});
+    b+=para("PLAN (before the week)",{b:1,color:"2A4A9A"});
+    b+=table([["Activity","What I will do"],["1. Learning community",LC],["2. My choice",w.a2],["3. My choice (extra)",w.a3]],[2400,W-2400],{header:1});
     b+=table([["Days and times",w.when],["How I will check my progress",w.check]],[3200,W-3200],{labelCol:1});
-    b+=para("Week "+w.n+" reflection",{b:1});
-    b+=table(REFLECT.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:480})});
+    b+=para("DO (during the week)",{b:1,color:"2A4A9A"});
+    b+=table([DOHEAD,["1. Learning community","",""],["2. My choice","",""],["3. My choice (extra)","",""]],[2400,2300,W-4700],{header:1,minH:420});
+    b+=table([["Minutes this week","Planned: "+(pm?pm+" min":"        min")+"     Real:         min"]],[3200,W-3200],{labelCol:1});
+    b+=para("CHECK (end of the week)",{b:1,color:"2A4A9A"});
+    b+=table(REFLECT.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:400})});
   b+=para("Part 6: Looking back",{style:"Heading1",pb:1});
   b+=para("Answer after Week 6. Look at your Future Me drawing one more time.");
   b+=table(LOOKBACK.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:700});
