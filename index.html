@@ -42,6 +42,9 @@ button,input,textarea{font:inherit;color:inherit}
 
 .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .top small{color:var(--muted);font-size:.85rem}
+.rk{display:inline-grid;place-items:center;min-width:1.5em;height:1.5em;border-radius:50%;background:var(--on-indigo);color:var(--indigo);font-size:.8rem;margin-right:7px}
+.addrow{display:flex;gap:8px;flex-wrap:wrap}
+.addrow input{flex:1;min-width:180px}
 .rail{display:flex;gap:6px;list-style:none;margin:0;padding:0}
 .rail li{flex:1;min-width:0}
 .rail button{width:100%;border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;gap:5px;align-items:flex-start;color:var(--muted);font-size:.74rem;text-align:left}
@@ -183,10 +186,10 @@ var SMART=[
  {k:"S",name:"Specific",def:"A specific goal is clear and exact.",items:["My goal names one clear skill (for example, speaking, not just \"English\").","My goal says what I will do.","My goal is not too big or too general.","Another person can understand my goal without asking me questions."],tip:"Make your goal clearer. For example, change \"improve speaking\" to \"speak about my hometown for two minutes without stopping.\""},
  {k:"M",name:"Measurable",def:"A measurable goal has numbers or a clear way to check progress.",items:["My goal has a number in it (minutes, pages, words, times, score).","I can clearly see when I have finished my goal.","I can track my progress every week.","I know how I will test myself at the end."],tip:"Add numbers. For example, change \"learn new words\" to \"learn and use 120 new words.\""},
  {k:"A",name:"Achievable",def:"An achievable goal is possible for you in six weeks, with your real life.",items:["I have enough free time for this goal, after homework and classes.","My goal matches my English level now (not too easy, not too hard).","I have the materials I need (books, apps, websites, partners).","In my busiest week at university, I can still do this goal."],tip:"Make your goal smaller. It is better to finish a small goal than to stop a big one."},
- {k:"R",name:"Relevant",def:"A relevant goal helps you become the person in your Future Me drawing.",items:["This goal is a real step toward the Future Me in my drawing.","I really care about this goal. Nobody told me to choose it.","This goal fits my direction (a test, study abroad, or my own goal).","When I look at my drawing, I can see how this goal fits."],tip:"Look at your drawing one more time and choose a goal that helps that future you."},
+ {k:"R",name:"Relevant",def:"A relevant goal helps you become the person you want to be one year from now.",items:["This goal is a real step toward my Future Me.","I really care about this goal. Nobody told me to choose it.","This goal fits my direction (a test, study abroad, or my own goal).","When I think about my Future Me, I can see how this goal fits."],tip:"Think about your Future Me one more time and choose a goal that helps that future you."},
  {k:"T",name:"Time-bound",def:"A time-bound goal has a start date, an end date, and weekly steps.",items:["My plan has a start date and an end date, six weeks apart.","I know which days and times I will study.","I have a small step for each week, not only one big deadline.","I chose this time myself. It is outside homework and classes."],tip:"Go back to \"My time\" and choose your days and minutes."}];
 var DOHEAD=["Activity","Did I do it? (Yes / Partly / No)","What I really did (days, minutes, amount)"];
-var REFLECT=["Did I follow my plan this week? (Yes / Mostly / Not really) Why?","What was the result of my progress check?","What did I learn this week?","What worked well?","What was difficult?","Did I move one small step closer to my drawing? How?","What will I change in next week's plan?"];
+var REFLECT=["Did I follow my plan this week? (Yes / Mostly / Not really) Why?","What was the result of my progress check?","What did I learn this week?","What worked well?","What was difficult?","Did I move one small step closer to my Future Me? How?","What will I change in next week's plan?"];
 var LOOKBACK=["Did I reach my SMART goal? (Yes / Almost / Not yet)","How do I know?","Which activity helped me most?","What was difficult?","How well did I follow my plan in the six weeks? (Plan, Do, Check)","How did my learning community help me?","I am now one step closer to my Future Me because ...","My next step is ..."];
 
 var PDC='<div class="pdc"><div><b>1. Plan</b><span>Write what, when, how long, and how you will check.</span></div><div><b>2. Do</b><span>Follow your plan during the week and record what you really did.</span></div><div><b>3. Check</b><span>Compare your plan with what you did. Change next week\'s plan.</span></div></div>';
@@ -204,7 +207,21 @@ var START="2026-10-22";
 var D={theme:THEME_DEFAULT};
 FOCUS.forEach(function(f,i){D["focus"+(i+1)]=f});
 function v(k){if(k==="start")return START;return S[k]!=null?S[k]:(D[k]||"")}
-function gt(){return GT[S.gtype]?S.gtype:"other"}
+var GOALOPTS=[["Get an IELTS score","ielts"],["Get a TOEFL or TOEIC score","ielts"],["Join an exchange program","abroad"],["Join a short program abroad","abroad"],["Be ready for daily life abroad","abroad"],["Make international friends","other"],["Travel in English","other"],["Watch films and videos without subtitles","other"],["Use English in my future job","other"],["Give presentations in English","other"],["Read English books and news","other"],["Do well in my classes in English","other"]];
+var GMAX=3,gmsg="";
+function goals(){return Array.isArray(S.goals)?S.goals:[]}
+function catOf(g){for(var i=0;i<GOALOPTS.length;i++)if(GOALOPTS[i][0]===g)return GOALOPTS[i][1];return "other"}
+function cats(){var c=[];goals().forEach(function(g){var k=catOf(g);if(c.indexOf(k)<0)c.push(k)});if(!c.length&&GT[S.gtype])c.push(S.gtype);return c}
+function gt(){return cats()[0]||"other"}
+function pool(obj){var c=cats(),out=[];if(!c.length)c=["ielts","abroad","other"];c.forEach(function(k){obj[k].forEach(function(x){if(out.indexOf(x)<0)out.push(x)})});return out}
+function goalsLine(sep){var g=goals();if(!g.length)return GT[S.gtype]?GT[S.gtype].label:"";return g.map(function(x,i){return (i+1)+". "+x}).join(sep)}
+var SKILLRE={speaking:/talk|speak|shadow|conversation|read aloud|interview|introduction|role play/i,writing:/write|essay|diary|study plan|task [12]/i,listening:/listen|podcast|vlog|video/i,reading:/read (?!aloud)|reader|passage|research|compare/i,vocabulary:/word/i,pronunciation:/shadow|read aloud|record/i,grammar:/write|essay|diary/i};
+function goalExamples(){var sk=list(S.skill),c=cats(),all=[];if(!c.length)c=["ielts","abroad","other"];
+  c.forEach(function(k,ci){GOALS[k].forEach(function(t,i){var m=0;sk.forEach(function(x){if(SKILLRE[x]&&SKILLRE[x].test(t))m++});all.push({t:t,m:m,ci:ci,i:i})})});
+  var per=Math.max(2,Math.ceil(8/c.length));
+  all.sort(function(a,b){return (b.m-a.m)||(a.ci-b.ci)||(a.i-b.i)});
+  var cnt={},out=[];all.forEach(function(x){cnt[x.ci]=cnt[x.ci]||0;if(cnt[x.ci]<per&&out.length<8){cnt[x.ci]++;out.push(x)}});
+  out.sort(function(a,b){return (a.ci-b.ci)||(b.m-a.m)||(a.i-b.i)});return out.map(function(x){return x.t})}
 function pdate(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||"");return m?new Date(+m[1],+m[2]-1,+m[3]):null}
 function fmt(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})}
 function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
@@ -215,14 +232,14 @@ function num(k){var n=parseInt(S[k],10);return isFinite(n)&&n>0?n:0}
 function timeLine(){var d=num("days"),m=num("mins");if(!d||!m)return "";return m+" minutes a day, "+d+" day"+(d>1?"s":"")+" a week ("+(d*m)+" minutes a week)"}
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function list(s){return String(s||"").split(",").map(function(x){return x.trim()}).filter(Boolean)}
-function chipsHTML(k,arr,multi){var cur=v(k),items=list(cur);
-  return '<div class="chips" data-for="'+k+'"'+(multi?' data-multi="1"':'')+'>'+arr.map(function(c){var on=multi?items.indexOf(String(c))>=0:String(cur)===String(c);return '<button type="button" class="chip" data-val="'+esc(c)+'" aria-pressed="'+on+'">'+esc(c)+'</button>'}).join("")+'</div>'}
+function list(s,nl){return String(s||"").split(nl?"\n":",").map(function(x){return x.trim()}).filter(Boolean)}
+function chipsHTML(k,arr,multi,o){o=o||{};var nl=multi&&o.area,cur=v(k),items=list(cur,nl);
+  return '<div class="chips" data-for="'+k+'"'+(multi?' data-multi="1"':'')+(nl?' data-nl="1"':'')+(o.max?' data-max="'+o.max+'"':'')+'>'+arr.map(function(c){var on=multi?items.indexOf(String(c))>=0:String(cur)===String(c);return '<button type="button" class="chip" data-val="'+esc(c)+'" aria-pressed="'+on+'">'+esc(c)+'</button>'}).join("")+'</div>'}
 function field(k,label,o){o=o||{};var id="f-"+k,val=esc(v(k));
   var inp=o.area?'<textarea id="'+id+'" data-k="'+k+'" rows="'+(o.rows||3)+'" placeholder="'+esc(o.ph||"")+'">'+val+'</textarea>'
     :'<input id="'+id+'" data-k="'+k+'" type="'+(o.type||"text")+'"'+(o.type==="number"?' min="1" inputmode="numeric"':'')+' value="'+val+'" placeholder="'+esc(o.ph||"")+'">';
-  var ch=o.chips?chipsHTML(k,o.chips,o.multi):"";
-  if(o.chips){o.hint=(o.hint?o.hint+" ":"")+(o.fold?"Type your own answer, or open the ideas and choose one.":o.multi?"Click one or more answers, or type your own in the box.":"Click an answer, or type your own in the box.");if(!o.ph)o.ph="You can type your own answer here"}
+  var ch=o.chips?chipsHTML(k,o.chips,o.multi,o):"";
+  if(o.chips){o.hint=(o.hint?o.hint+" ":"")+(o.fold?"Type your own answer, or open the ideas and choose one.":o.max?"Click up to "+o.max+" answers, or type your own in the box.":o.multi?"Click one or more answers, or type your own in the box.":"Click an answer, or type your own in the box.");if(!o.ph)o.ph="You can type your own answer here"}
   if(ch&&o.fold)ch='<details class="ideas"><summary>'+esc(o.fold)+'</summary>'+ch+'</details>';
   return '<div class="field"><label for="'+id+'">'+esc(label)+'</label>'+(o.hint?'<span class="hint">'+esc(o.hint)+'</span>':'')+(o.fold?inp+ch:ch+inp)+'</div>'}
 function head(n,title,lead){return '<div><div class="kicker">Step '+(n+1)+' of '+STEPS.length+'</div><h2>'+esc(title)+'</h2></div>'+(lead?'<p class="lead">'+lead+'</p>':'')}
@@ -236,17 +253,22 @@ function(){return head(0,"Plan your next six weeks","This page helps you make yo
  +'<div class="row"><div class="field"><span class="qlabel">Start date</span><span class="hint">The same for everyone</span><p>'+startDate()+'</p></div><div class="field"><span class="qlabel">End date</span><span class="hint">Six weeks after the start</span><p data-live="end"></p></div></div>'
  +'<div class="actions"><button type="button" class="btn link" data-act="example">Show me an example plan</button><button type="button" class="btn link" data-act="reset">Start again with an empty plan</button></div>'},
 
-function(){return head(1,"Look at your Future Me drawing","Take out your drawing and look at it again. Short answers are fine.")
- +field("q1","In my drawing, where am I and what am I doing?",{area:1,rows:2,chips:["I am studying at a university abroad.","I am traveling in another country.","I am talking with international friends.","I am working with people from other countries.","I have the test score I wanted.","I am doing a homestay.","I am giving a presentation in English.","I am doing an internship or volunteer work abroad.","I am watching a sports game or a concert abroad.","I am helping foreign visitors in Japan."]})
- +field("q2","How am I using English in my drawing?",{multi:1,hint:"You can choose more than one.",chips:["talking with people","studying abroad","reading","writing","working","traveling","watching films","making friends","giving presentations","listening to music or podcasts","playing games","using social media","shopping and ordering food"]})
- +field("q3","What kind of person am I in my drawing? How do I feel?",{multi:1,chips:["confident","brave","curious","talkative","active","relaxed","friendly","independent","hardworking","excited","proud","calm","a little nervous but happy"]})
- +field("q4","What is one thing in my drawing that I cannot do yet today?",{area:1,rows:2,chips:["I cannot speak English without stopping.","I cannot understand fast English.","I cannot write a long essay.","I do not know enough words.","I do not have the test score I need.","I cannot give a presentation in English.","I cannot read long texts quickly.","I cannot start a conversation with a stranger.","I cannot pronounce words clearly.","I cannot understand English without subtitles."]})},
+function(){return head(1,"Picture your Future Me","Take out your Future Me drawing and look at it again. <mark>No drawing?</mark> Close your eyes and imagine yourself one year from now. Short answers are fine.")
+ +field("q1","One year from now, where am I and what am I doing?",{area:1,rows:2,chips:["I am studying at a university abroad.","I am traveling in another country.","I am talking with international friends.","I am working with people from other countries.","I have the test score I wanted.","I am doing a homestay.","I am giving a presentation in English.","I am doing an internship or volunteer work abroad.","I am watching a sports game or a concert abroad.","I am helping foreign visitors in Japan."]})
+ +field("q2","How am I using English then?",{multi:1,hint:"You can choose more than one.",chips:["talking with people","studying abroad","reading","writing","working","traveling","watching films","making friends","giving presentations","listening to music or podcasts","playing games","using social media","shopping and ordering food"]})
+ +field("q3","What kind of person am I then? How do I feel?",{multi:1,chips:["confident","brave","curious","talkative","active","relaxed","friendly","independent","hardworking","excited","proud","calm","a little nervous but happy"]})
+ +field("q4","What can my Future Me do that I cannot do yet today?",{area:1,rows:3,multi:1,hint:"You can choose more than one.",chips:["I cannot speak English without stopping.","I cannot understand fast English.","I cannot write a long essay.","I do not know enough words.","I do not have the test score I need.","I cannot give a presentation in English.","I cannot read long texts quickly.","I cannot start a conversation with a stranger.","I cannot pronounce words clearly.","I cannot understand English without subtitles."]})},
 
-function(){var g=S.gtype;return head(2,"Choose your direction","Your drawing shows where you want to go. Now choose the road.")
- +'<div class="field"><span class="qlabel">My goal for English is ...</span><div class="cards" data-for="gtype">'+Object.keys(GT).map(function(k){return '<button type="button" class="card" data-card="'+k+'" aria-pressed="'+(g===k)+'"><b>'+GT[k].label+'</b><span>'+GT[k].sub+'</span></button>'}).join("")+'</div></div>'
- +field("gdetail","More exactly, I want ...",{chips:DETAIL[gt()],ph:"Type your own"})
+function(){var g=goals(),opts=GOALOPTS.map(function(x){return x[0]});g.forEach(function(x){if(opts.indexOf(x)<0)opts.push(x)});
+ return head(2,"Choose your direction","Your Future Me shows where you want to go. Now choose the road.")
+ +'<div class="field"><label for="f-gown">My goal for English is ...</label><span class="hint">Choose up to '+GMAX+' goals. Click the goal you want most first. The numbers show your ranking: 1 is the goal you want most. You can also add your own goal.</span>'
+ +'<div class="chips">'+opts.map(function(x){var r=g.indexOf(x);return '<button type="button" class="chip" data-goal="'+esc(x)+'" aria-pressed="'+(r>=0)+'">'+(r>=0?'<b class="rk">'+(r+1)+'</b>':'')+esc(x)+'</button>'}).join("")+'</div>'
+ +(gmsg?'<p class="note">'+esc(gmsg)+'</p>':'')
+ +'<div class="addrow"><input id="f-gown" type="text" placeholder="Type your own goal here"><button type="button" class="btn ghost" data-act="addgoal">Add my goal</button></div>'
+ +(g.length?'<p><b>My ranking:</b> '+esc(goalsLine("  "))+'</p>':'')+'</div>'
+ +field("gdetail","More exactly, I want ...",{fold:"Show ideas",chips:pool(DETAIL)})
  +field("skill","Which English skill do I need most?",{multi:1,hint:"Choose one or two.",chips:["speaking","listening","reading","writing","vocabulary","grammar","pronunciation"]})
- +field("why","Why is this skill important for the future me?",{area:1,rows:2,chips:["I need it for my test score.","I need it to live and study abroad.","I want to talk with people more easily.","I want to understand what I watch and read.","I want to make friends from other countries.","I need it for my classes in English.","I want more confidence.","I want to travel without help.","I need it for my future job.","It is my weakest skill now."]})},
+ +field("why","Why is this skill important for the future me?",{area:1,rows:3,multi:1,max:3,chips:["I need it for my test score.","I need it to live and study abroad.","I want to talk with people more easily.","I want to understand what I watch and read.","I want to make friends from other countries.","I need it for my classes in English.","I want more confidence.","I want to travel without help.","I need it for my future job.","It is my weakest skill now."]})},
 
 function(){return head(3,"Decide your time","The six weeks are fixed. The minutes are yours. Be honest about your university life.")
  +'<div class="free"><p><b>This is <mark>free time that you choose to give</mark>.</b> It is outside your homework and your classes. A small plan that you keep is better than a big plan that you stop.</p></div>'
@@ -257,18 +279,18 @@ function(){return head(3,"Decide your time","The six weeks are fixed. The minute
  +field("backup","If I miss a day, I will ...",{chips:["do it the next day.","do a shorter 5-minute version.","add 15 minutes on Sunday.","move it to the weekend.","study with a friend the next day.","start again the next week and not give up."]})},
 
 function(){var h=head(4,"Write your SMART goal","Write one goal for these six weeks. It is one small step toward your Future Me. Then check it with the five questions.")
- +field("draft","My goal (first draft)",{area:1,rows:3,fold:"Show example goals for "+GT[gt()].label,chips:GOALS[gt()],hint:"Use an example and change the numbers, or write your own."});
+ +field("draft","My goal (first draft)",{area:1,rows:3,fold:"Show example goals for my goals and skills",chips:goalExamples(),hint:"The examples match the goals and skills you chose. Use one and change the numbers, or write your own."});
  SMART.forEach(function(g){h+='<section class="smart" data-smart="'+g.k+'"><h3><i>'+g.k+'</i>'+g.name+'</h3><p class="hint">'+g.def+'</p>'
   +g.items.map(function(t,i){var key="c"+g.k+i,cv=S[key];return '<div class="yn"><p>'+esc(t)+'</p><div class="seg" role="group" aria-label="'+esc(t)+'" data-yn="'+key+'"><button type="button" data-v="y" aria-pressed="'+(cv==="y")+'">Yes</button><button type="button" data-v="n" aria-pressed="'+(cv==="n")+'">No</button></div></div>'}).join("")
   +'<div data-live="tip'+g.k+'"></div></section>'});
  h+='<section class="smart"><h3>My final SMART goal</h3><p class="hint">Rewrite your goal with everything you checked.</p>'
   +field("final","In six weeks, I will ...",{area:1,rows:3})
   +'<div class="actions"><button type="button" class="btn link" data-act="copydraft">Use my first draft</button></div>'
-  +field("because","This goal will help me become the person in my drawing because ...",{area:1,rows:2,fold:"Show ideas",chips:["I need this skill for my test score.","I will use this skill when I study abroad.","it is my weakest skill now.","it will give me more confidence.","I can use it to talk with people in my drawing."]})+'</section>';
+  +field("because","This goal will help me become my Future Me because ...",{area:1,rows:2,fold:"Show ideas",chips:["I need this skill for my test score.","I will use this skill when I study abroad.","it is my weakest skill now.","it will give me more confidence.","I can use it to talk with people in my drawing."]})+'</section>';
  return h},
 
 function(){var h=head(5,"Give your six weeks a theme","A theme is a short title for your six weeks. Keep the shared theme, choose another one, or type your own.")
- +field("theme","My theme",{chips:[THEME_DEFAULT].concat(THEMES[gt()])})
+ +field("theme","My theme",{chips:[THEME_DEFAULT].concat(pool(THEMES))})
  +'<div class="field"><span class="qlabel">The focus of each week</span><span class="hint">You can keep these or change them.</span></div>';
  for(var i=1;i<=6;i++)h+=field("focus"+i,"Week "+i+" ("+weekRange(i)+")",{hint:FOCUSQ[i-1],fold:"Show ideas",chips:[FOCUS[i-1],"Vocabulary","Listening","Speaking","Reading","Writing","Pronunciation","Practice test","Review"]});
  return h},
@@ -279,8 +301,8 @@ function(){var w=week,h=head(6,"Plan each week","Plan two or three activities fo
  h+='</div><div><h3>Week '+w+': '+esc(v("focus"+w))+'</h3><p class="hint">'+weekRange(w)+(timeLine()?' · My time: '+esc(timeLine()):'')+'</p></div>'
  +'<div class="stage">Plan <small>Write this now.</small></div>'
  +'<div class="act fixed"><span class="n">Activity 1</span><b>'+LC+'</b><p class="hint">'+LCNOTE+'</p></div>'
- +'<div class="act"><span class="n">Activity 2 · my choice</span>'+field("w"+w+"a2","What I will do",{fold:"Show ideas",chips:ACTS[gt()].concat(ACT_ALL)})+'</div>'
- +'<div class="act"><span class="n">Activity 3 · extra, only if I want</span>'+field("w"+w+"a3","What I will do",{fold:"Show ideas",chips:ACTS[gt()].concat(ACT_ALL)})+'</div>'
+ +'<div class="act"><span class="n">Activity 2 · my choice</span>'+field("w"+w+"a2","What I will do",{fold:"Show ideas",chips:pool(ACTS).concat(ACT_ALL)})+'</div>'
+ +'<div class="act"><span class="n">Activity 3 · extra, only if I want</span>'+field("w"+w+"a3","What I will do",{fold:"Show ideas",chips:pool(ACTS).concat(ACT_ALL)})+'</div>'
  +field("w"+w+"when","Days and times this week",{ph:"Example: Tuesday and Friday, 20 minutes, on the train",fold:"Show ideas",chips:["Monday, Wednesday, Friday, 20 minutes","Tuesday and Thursday, 30 minutes","Every weekday, 15 minutes on the train","Saturday and Sunday, 45 minutes","Three days this week, 20 minutes before bed","Same days and times as last week"]})
  +'<div class="stage">Do <small>This part comes later, in your Word file.</small></div><p class="hint">During the week, follow your plan and record what you really did in the Do table of your Word file.</p>'
  +'<div class="stage">Check <small>Decide now how you will check. Write the result at the end of the week.</small></div>'
@@ -295,7 +317,7 @@ function(){function dd(t,val){return '<dt>'+esc(t)+'</dt><dd>'+(val?esc(val):'<s
  var thin=0;for(var i=1;i<=6;i++)if(dscore(i)<4)thin++;if(thin)miss.push("some detail in "+thin+" week"+(thin>1?"s":""));
  var h=head(7,"Check and download","Read your plan. Go back to change anything. Then download it as a Word file and keep editing it each week.")
  +(miss.length?'<p class="note">Still empty: '+miss.join(", ")+'. You can also fill these in later in Word.</p>':'')
- +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("Six weeks",startDate()?startDate()+" to "+endDate():"")+dd("My direction",[S.gtype?GT[S.gtype].label:"",v("gdetail")].filter(Boolean).join(": "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+'</dl>'
+ +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("Six weeks",startDate()?startDate()+" to "+endDate():"")+dd("My goals, most wanted first",[goalsLine("; "),v("gdetail")].filter(Boolean).join(" · "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+'</dl>'
  +'<div class="field"><span class="qlabel">Detail check</span><span class="hint">Your plan is graded on its detail. A week with 4 of 4 has an activity, days and times, a number, and a way to check.</span><table class="dt"><tr><th>Week</th><th>Activity 2</th><th>Detail</th></tr>'+[1,2,3,4,5,6].map(function(i){return '<tr><td>Week '+i+'</td><td>'+(S["w"+i+"a2"]?esc(S["w"+i+"a2"]):'<span class="empty">not written yet</span>')+'</td><td>'+dscore(i)+' of 4</td></tr>'}).join("")+'</table></div>'
  +'<div class="actions"><button type="button" class="btn" data-act="download" id="dl">Download Word file</button><button type="button" class="btn ghost" data-act="copy">Copy my plan as text</button></div>'
  +'<p class="status" id="status" role="status"></p><textarea id="copyout" hidden readonly aria-label="My plan as text"></textarea>'
@@ -335,23 +357,30 @@ document.getElementById("rail").addEventListener("click",function(e){var b=e.tar
 var main=document.getElementById("main");
 main.addEventListener("input",function(e){var k=e.target.dataset.k;if(!k)return;S[k]=e.target.value;save();
   var box=main.querySelector('.chips[data-for="'+k+'"]');if(box)syncChips(box,k);live()});
-function syncChips(box,k){var multi=box.dataset.multi,cur=String(S[k]==null?"":S[k]),items=list(cur);
+function syncChips(box,k){var multi=box.dataset.multi,cur=String(S[k]==null?"":S[k]),items=list(cur,box.dataset.nl);
   box.querySelectorAll(".chip").forEach(function(c){c.setAttribute("aria-pressed",multi?items.indexOf(c.dataset.val)>=0:cur===c.dataset.val)})}
 var resetArmed=false;
 main.addEventListener("click",function(e){
   var c=e.target.closest(".chip");
-  if(c){var box=c.parentNode,k=box.dataset.for,val=c.dataset.val;
-    if(box.dataset.multi){var it=list(S[k]),ix=it.indexOf(val);if(ix>=0)it.splice(ix,1);else it.push(val);S[k]=it.join(", ")}
+  if(c&&!c.dataset.goal){var box=c.parentNode,k=box.dataset.for,val=c.dataset.val;
+    if(box.dataset.multi){var nl=box.dataset.nl,mx=+box.dataset.max||0,it=list(S[k],nl),ix=it.indexOf(val),fld=box.closest(".field"),mm=fld&&fld.querySelector(".maxmsg");
+      if(ix>=0)it.splice(ix,1);else if(mx&&it.length>=mx){if(fld&&!mm){mm=document.createElement("p");mm.className="note maxmsg";mm.textContent="You already have "+mx+". Click a chosen answer to remove it first.";box.after(mm)}return}else it.push(val);
+      if(mm&&it.length<mx)mm.remove();S[k]=it.join(nl?"\n":", ")}
     else S[k]=(String(S[k])===val)?"":val;
     var inp=document.getElementById("f-"+k);if(inp)inp.value=S[k];save();syncChips(box,k);live();return}
-  var card=e.target.closest("[data-card]");
-  if(card){S.gtype=card.dataset.card;save();render(false);return}
+  var gb=e.target.closest("[data-goal]");
+  if(gb){var gl=goals().slice(),gv=gb.dataset.goal,gi=gl.indexOf(gv);gmsg="";
+    if(gi>=0)gl.splice(gi,1);else if(gl.length>=GMAX)gmsg="You already have "+GMAX+" goals. Click a chosen goal to remove it first.";else gl.push(gv);
+    S.goals=gl;save();render(false);return}
   var yn=e.target.closest(".seg button");
   if(yn){var key=yn.parentNode.dataset.yn;S[key]=yn.dataset.v;save();yn.parentNode.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b===yn)});live();return}
   var wk=e.target.closest("[data-week]");
   if(wk){week=+wk.dataset.week;render(true);return}
   var a=e.target.closest("[data-act]");if(!a)return;var act=a.dataset.act;
-  if(act==="copydraft"){S.final=v("draft");save();document.getElementById("f-final").value=S.final;live()}
+  if(act==="addgoal"){var gi2=document.getElementById("f-gown"),gv2=gi2.value.trim(),gl2=goals().slice();gmsg="";
+    if(!gv2)gmsg="Type your goal in the box first.";else if(gl2.indexOf(gv2)>=0)gmsg="This goal is already in your list.";else if(gl2.length>=GMAX)gmsg="You already have "+GMAX+" goals. Click a chosen goal to remove it first.";else gl2.push(gv2);
+    S.goals=gl2;save();render(false)}
+  else if(act==="copydraft"){S.final=v("draft");save();document.getElementById("f-final").value=S.final;live()}
   else if(act==="copyweek"){for(var i=2;i<=6;i++)["a2","a3","when","check"].forEach(function(f){if(!S["w"+i+f])S["w"+i+f]=S["w1"+f]||""});save();render(false);a=main.querySelector('[data-act="copyweek"]');if(a)a.textContent="Copied to empty weeks"}
   else if(act==="example"){S=example();save();render(false)}
   else if(act==="reset"){if(!resetArmed){resetArmed=true;a.textContent="Click again to delete all my answers";return}resetArmed=false;S={};save();render(false)}
@@ -359,7 +388,7 @@ main.addEventListener("click",function(e){
   else if(act==="copy")copyText();
 });
 
-function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",gtype:"ielts",gdetail:"IELTS 6.0",skill:"speaking",why:"I need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:GOALS.ielts[0],final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
+function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",goals:["Get an IELTS score","Join an exchange program"],gdetail:"IELTS 6.0",skill:"speaking",why:"I need it for my test score.\nI need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:GOALS.ielts[0],final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
   SMART.forEach(function(g){g.items.forEach(function(_,i){e["c"+g.k+i]="y"})});
   var a2=["Record a 2-minute talk and listen to it","Record a 2-minute talk and listen to it","Read one sample answer and note useful phrases","Record a 2-minute talk and listen to it","Do a full speaking practice with a friend","Record my best 2-minute talk and compare it with Week 1"];
   for(var i=1;i<=6;i++){e["w"+i+"a2"]=a2[i-1];e["w"+i+"a3"]=i%2?"Learn 20 topic words":"";e["w"+i+"when"]="Monday, Wednesday, Friday, 20 minutes";e["w"+i+"check"]="I will record myself and listen."}
@@ -368,8 +397,8 @@ function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("
 /* ---------- plan as plain data ---------- */
 function plan(){var p={title:"My 6-Week English Learning Plan",who:[v("name")&&"Name: "+v("name"),v("cls")&&"Class: "+v("cls")].filter(Boolean).join("    ")||"Name:                    Class:",
   dates:startDate()?startDate()+" to "+endDate():"",theme:v("theme"),
-  part1:[["In my drawing, where am I and what am I doing?",v("q1")],["How am I using English in my drawing?",v("q2")],["What kind of person am I in my drawing? How do I feel?",v("q3")],["What is one thing in my drawing that I cannot do yet today?",v("q4")]],
-  part2:[["My goal for English",[S.gtype?GT[S.gtype].label:"",v("gdetail")].filter(Boolean).join(": ")],["The skill I need most",v("skill")],["Why this skill is important for the future me",v("why")]],
+  part1:[["One year from now, where am I and what am I doing?",v("q1")],["How am I using English then?",v("q2")],["What kind of person am I then? How do I feel?",v("q3")],["What can my Future Me do that I cannot do yet today?",v("q4")]],
+  part2:[["My goals for English (most wanted first)",goalsLine("\n")],["More exactly, I want",v("gdetail")],["The skill I need most",v("skill")],["Why this skill is important for the future me",v("why")]],
   time:[["My free time each week",timeLine()],["When",v("when")],["Where",v("where")],["If I miss a day, I will ...",v("backup")]],
   draft:v("draft"),final:v("final"),because:v("because"),weeks:[]};
   p.checks=SMART.map(function(g){return {k:g.k,name:g.name,rows:g.items.map(function(t,i){var c=S["c"+g.k+i];return [t,c==="y"?"Yes":c==="n"?"No":""]})}});
@@ -379,7 +408,7 @@ function plan(){var p={title:"My 6-Week English Learning Plan",who:[v("name")&&"
 function planText(){var p=plan(),o=[p.title,p.who,p.dates?"Six weeks: "+p.dates:"",p.theme?"Theme: "+p.theme:"","","This plan is my choice. I do it in my free time, outside homework and classes.","It is graded on (1) how detailed my plan is and (2) how well I follow it: Plan, Do, Check.","","PART 1: MY FUTURE ME"];
   p.part1.forEach(function(r){o.push(r[0],"  "+r[1])});o.push("","PART 2: MY DIRECTION");p.part2.forEach(function(r){o.push(r[0]+": "+r[1])});
   o.push("","PART 3: MY TIME");p.time.forEach(function(r){o.push(r[0]+": "+r[1])});
-  o.push("","PART 4: MY SMART GOAL","First draft: "+p.draft,"Final goal: "+p.final,"This goal will help me become the person in my drawing because "+p.because,"","PART 5: MY WEEKLY PLAN");
+  o.push("","PART 4: MY SMART GOAL","First draft: "+p.draft,"Final goal: "+p.final,"This goal will help me become my Future Me because "+p.because,"","PART 5: MY WEEKLY PLAN");
   p.weeks.forEach(function(w){o.push("","Week "+w.n+" ("+w.range+"): "+w.focus,"  Activity 1: "+LC,"  Activity 2: "+w.a2,"  Activity 3 (extra): "+w.a3,"  Days and times: "+w.when,"  How I will check: "+w.check,"  DO (what I really did): ","  CHECK:");REFLECT.forEach(function(q){o.push("    "+q)})});
   o.push("","PART 6: LOOKING BACK");LOOKBACK.forEach(function(q){o.push("  "+q)});return o.join("\n")}
 
@@ -415,7 +444,7 @@ function documentXml(){var p=plan(),b="";
   b+=table([["My first draft",p.draft]],[2200,W-2200],{labelCol:1});
   p.checks.forEach(function(g){b+=para(g.k+": "+g.name,{style:"Heading2"});b+=table(g.rows,[W-1300,1300],{})});
   b+=para("My final SMART goal",{style:"Heading2"});
-  b+=table([["In six weeks, I will ...",p.final],["This goal will help me become the person in my drawing because ...",p.because]],[3200,W-3200],{labelCol:1,minH:700});
+  b+=table([["In six weeks, I will ...",p.final],["This goal will help me become my Future Me because ...",p.because]],[3200,W-3200],{labelCol:1,minH:700});
   b+=para("Part 5: My weekly plan",{style:"Heading1",pb:1});
   b+=para("Each week I plan two or three activities. Activity 1 is always my learning community meeting. My learning community has its own plan and schedule.");
   b+=para("Every week has three parts. PLAN is written before the week. DO is filled in during the week. CHECK is written at the end of the week. An honest record is better than a perfect one.");
@@ -431,7 +460,7 @@ function documentXml(){var p=plan(),b="";
     b+=para("CHECK (end of the week)",{b:1,color:"2A4A9A"});
     b+=table(REFLECT.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:400})});
   b+=para("Part 6: Looking back",{style:"Heading1",pb:1});
-  b+=para("Answer after Week 6. Look at your Future Me drawing one more time.");
+  b+=para("Answer after Week 6. Think about your Future Me one more time.");
   b+=table(LOOKBACK.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:700});
   return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+b+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>'}
 var STYLES='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="Yu Gothic" w:cs="Arial"/><w:sz w:val="21"/><w:szCs w:val="21"/><w:lang w:val="en-US" w:eastAsia="ja-JP"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="140" w:line="276" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>'
