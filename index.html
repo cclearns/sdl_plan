@@ -201,6 +201,7 @@ function dscore(n){return detail(n).filter(function(x){return x[1]}).length}
 var S={};
 try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
 delete S["undefined"];
+if(S._v!==2){Object.keys(S).forEach(function(k){if(/^c[SMART]\d$/.test(k))delete S[k]});S._v=2}
 var storageOK=true;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOK=false;var n=document.getElementById("savednote");if(n)n.textContent="Answers are not saved here. Download your plan before you close this page."}}
 
@@ -399,8 +400,7 @@ main.addEventListener("click",function(e){
   else if(act==="copy")copyText();
 });
 
-function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",goals:["Get an IELTS score","Join an exchange program"],gdetail:"IELTS 6.0",skill:"speaking",why:"I need it for my test score.\nI need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:tpl(GOALS.ielts[0]),weeks:"6",final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
-  SMART.forEach(function(g){g.items.forEach(function(_,i){e["c"+g.k+i]="y"})});
+function example(){var e={_step:0,_v:2,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",goals:["Get an IELTS score","Join an exchange program"],gdetail:"IELTS 6.0",skill:"speaking",why:"I need it for my test score.\nI need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:tpl(GOALS.ielts[0]),weeks:"6",final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
   var a2=["Record a 2-minute talk and listen to it","Record a 2-minute talk and listen to it","Read one sample answer and note useful phrases","Record a 2-minute talk and listen to it","Do a full speaking practice with a friend","Record my best 2-minute talk and compare it with Week 1"];
   for(var i=1;i<=6;i++){e["w"+i+"a2"]=a2[i-1];e["w"+i+"a3"]=i%2?"Learn 20 topic words":"";e["w"+i+"when"]="Monday, Wednesday, Friday, 20 minutes";e["w"+i+"check"]="I will record myself and listen."}
   return e}
