@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Build your own six-week English learning plan, step by step, and download it as an editable Word file.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>My 6-Week English Plan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<style>
+/* Layout: one narrow notebook column; a numbered step rail on top, one step on screen, a sticky Back/Next bar below. */
+:root{
+  --paper:#F3F6FA; --surface:#FFFFFF; --ink:#1A2233; --muted:#566074; --line:#D3DAE6;
+  --indigo:#2A4A9A; --indigo-soft:#E5ECF9; --on-indigo:#FFFFFF;
+  --marker:#FFE36E; --ok:#1B7A58; --warn:#9A520A; --warn-soft:#FFF3DC;
+  --display:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#11151D; --surface:#19202C; --ink:#E7ECF4; --muted:#9CA7BA; --line:#2E3849;
+  --indigo:#9AB6FF; --indigo-soft:#1F2B47; --on-indigo:#0E1524;
+  --marker:#5E4E06; --ok:#5FD0A4; --warn:#F2B25C; --warn-soft:#33270F; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#11151D; --surface:#19202C; --ink:#E7ECF4; --muted:#9CA7BA; --line:#2E3849;
+  --indigo:#9AB6FF; --indigo-soft:#1F2B47; --on-indigo:#0E1524;
+  --marker:#5E4E06; --ok:#5FD0A4; --warn:#F2B25C; --warn-soft:#33270F; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:740px;margin:0 auto;padding-inline:16px;padding-block:20px 0;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.25}
+h1{font-size:1.15rem;font-weight:700}
+h2{font-size:1.7rem;font-weight:700}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
+
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top small{color:var(--muted);font-size:.85rem}
+.rail{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.rail li{flex:1;min-width:0}
+.rail button{width:100%;border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;gap:5px;align-items:flex-start;color:var(--muted);font-size:.74rem;text-align:left}
+.rail .bar{height:6px;width:100%;border-radius:3px;background:var(--line)}
+.rail .done .bar{background:var(--indigo);opacity:.45}
+.rail .now .bar{background:var(--indigo)}
+.rail .now{color:var(--ink);font-weight:700}
+.rail span.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+@media (max-width:620px){ .rail span.t{display:none} }
+
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;display:flex;flex-direction:column;gap:22px}
+@media (max-width:480px){ .sheet{padding:20px 16px} h2{font-size:1.45rem} }
+.kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--indigo);font-weight:700}
+.lead{color:var(--muted);max-width:62ch}
+mark{background:var(--marker);color:var(--ink);padding:0 .2em;border-radius:3px}
+.free{background:var(--indigo-soft);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.free ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field label,.qlabel{font-weight:700}
+.hint{color:var(--muted);font-size:.9rem}
+input[type=text],input[type=date],input[type=number],textarea{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;min-height:46px}
+textarea{resize:vertical;min-height:84px}
+input:focus,textarea:focus{border-color:var(--indigo)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:.93rem;text-align:left;line-height:1.3}
+.chip:hover{border-color:var(--indigo)}
+.chip[aria-pressed=true]{background:var(--indigo);border-color:var(--indigo);color:var(--on-indigo)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+details.ideas summary{cursor:pointer;color:var(--indigo);font-weight:700;font-size:.93rem}
+details.ideas .chips{margin-top:8px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.card{border:1.5px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:4px}
+.card b{font-family:var(--display)}
+.card span{color:var(--muted);font-size:.88rem}
+.card[aria-pressed=true]{border-color:var(--indigo);background:var(--indigo-soft)}
+
+.total{display:flex;gap:22px;flex-wrap:wrap;align-items:baseline;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0}
+.total b{font-family:var(--display);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.note{background:var(--warn-soft);color:var(--ink);border-left:4px solid var(--warn);padding:10px 14px;border-radius:4px;font-size:.95rem}
+
+.smart{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:16px}
+.smart h3 i{font-style:normal;display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:6px;background:var(--indigo);color:var(--on-indigo);margin-right:8px}
+.yn{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:6px 0}
+.yn p{min-width:0;font-size:.97rem}
+.seg{display:flex;flex:none;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:6px 13px;cursor:pointer;font-size:.9rem}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button[aria-pressed=true][data-v=y]{background:var(--ok);color:var(--surface)}
+.seg button[aria-pressed=true][data-v=n]{background:var(--warn);color:var(--surface)}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:.9rem;font-variant-numeric:tabular-nums}
+.tabs button[aria-pressed=true]{background:var(--indigo);border-color:var(--indigo);color:var(--on-indigo)}
+.tabs .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:6px;vertical-align:middle}
+.act{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.act.fixed{background:var(--indigo-soft);border-color:transparent}
+.act .n{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+dl.sum{margin:0;display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:8px 16px}
+dl.sum dt{color:var(--muted);font-size:.9rem}
+dl.sum dd{margin:0;min-width:0;overflow-wrap:anywhere}
+@media (max-width:520px){ dl.sum{grid-template-columns:1fr;gap:2px} dl.sum dd{margin-bottom:8px} }
+.empty{color:var(--muted);font-style:italic}
+
+.btn{border:1.5px solid var(--indigo);background:var(--indigo);color:var(--on-indigo);border-radius:8px;padding:11px 20px;cursor:pointer;font-weight:700;min-height:46px}
+.btn.ghost{background:transparent;color:var(--indigo)}
+.btn.link{border:0;background:none;color:var(--indigo);padding:6px 0;min-height:0;text-decoration:underline;font-weight:400}
+.btn:disabled{opacity:.5;cursor:default}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.status{font-size:.95rem;min-height:1.5em}
+.nav{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:10px;align-items:center}
+.nav .count{color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums}
+#copyout{font-size:.85rem;min-height:180px}
+@media (prefers-reduced-motion:no-preference){ .chip,.card,.btn{transition:background-color .12s,border-color .12s} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <h1>My 6-Week English Plan</h1>
+    <small id="savednote">Your answers are saved on this device.</small>
+  </header>
+  <nav aria-label="Steps"><ol class="rail" id="rail"></ol></nav>
+  <main class="sheet" id="main" tabindex="-1"></main>
+  <div class="nav">
+    <button class="btn ghost" id="back" type="button">Back</button>
+    <span class="count" id="count"></span>
+    <button class="btn" id="next" type="button">Next</button>
+  </div>
+</div>
+
+<script src="jszip.min.js"></script>
+<script>
+(function(){
+"use strict";
+var KEY="six-week-plan-v1";
+var STEPS=["Start","Future Me","Direction","My time","SMART goal","Theme","Weekly plan","Finish"];
+var THEME_DEFAULT="From Future Me to My Next Step";
+var FOCUS=["Start","Build","Take in","Give out","Challenge","Show"];
+var FOCUSQ=["Where am I now, and where do I want to go?","What routine works for me?","What can I read and listen to for my goal?","How can I speak and write more?","What real task can I try?","What did I do, and what is my next step?"];
+var LC="Learning community meeting";
+var LCNOTE="Your learning community has its own plan and schedule. Follow that plan.";
+
+var GT={ielts:{label:"IELTS or another test",sub:"I want a score."},abroad:{label:"Study abroad",sub:"I want to study in another country."},other:{label:"Something else",sub:"I have my own goal."}};
+var DETAIL={ielts:["IELTS 5.0","IELTS 5.5","IELTS 6.0","IELTS 6.5","IELTS 7.0","TOEFL iBT 70","TOEFL iBT 80","TOEIC 600","TOEIC 700","TOEIC 800","EIKEN Grade Pre-1"],abroad:["An exchange program in Australia","One semester in Canada","A short summer program","A university in Europe","One year in the United States","A homestay in New Zealand","A language school in the Philippines","A university in Asia with classes in English","A working holiday"],other:["Make international friends","Travel alone in another country","Watch films without subtitles","Use English in my future job","Give a presentation in English","Read English books for fun","Understand songs and games in English","Talk with tourists in Japan","Join an international club or event","Get a part-time job that uses English"]};
+var GOALS={
+ ielts:["Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week).","Write 6 IELTS Task 2 essays of 250 words, one each week, in 40 minutes each.","Learn and use 120 IELTS words in 6 weeks (20 each week) and pass my own quiz each week.","Finish 6 IELTS listening practice tests, one each week, and write down my score.","Read 12 IELTS reading passages (2 each week) with a 20-minute timer for each.","Write 6 IELTS Task 1 answers of 150 words, one each week, in 20 minutes each.","Take one full practice test in Week 1 and one in Week 6, and raise my score by 0.5."],
+ abroad:["Research 3 exchange programs and write a 150-word self-introduction for one of them by Week 6.","Talk with an international student for 10 minutes every week for 6 weeks.","Write a 300-word study plan for my exchange application by Week 6.","Watch 12 student vlogs from my target country and write 5 useful phrases from each.","Learn 90 words for daily life abroad (15 each week) and use them in 6 short role plays.","Compare the cost, classes, and housing of 3 universities in a one-page table by Week 6.","Give a 3-minute talk about my study abroad plan to my learning community in Week 6."],
+ other:["Read aloud one short article (about 300 words) 3 times a week for 6 weeks and record the last one.","Watch 12 English videos about my hobby and write 5 new words from each.","Read 6 graded readers, one each week, and write 3 sentences about each.","Keep an English diary, 3 sentences a day, 4 days a week for 6 weeks.","Listen to one English podcast episode 3 times a week and write a 2-sentence summary each time.","Shadow one 1-minute speech or song each week for 6 weeks and record it.","Learn 60 words about my interest (10 each week) and use them in a 2-minute talk in Week 6.","Have a 10-minute English conversation with a friend or an AI chat partner twice a week."]};
+var ACTS={
+ ielts:["Record a 2-minute talk and listen to it","Do one reading passage with a timer","Write one Task 2 essay and check it with the band descriptors","Learn 20 topic words","Do one listening practice test","Read one sample essay and note useful phrases","Write one Task 1 answer in 20 minutes","Practice Speaking Part 1 questions with a friend","Review my mistakes from the last practice test","Watch one video with IELTS tips and take notes","Learn 10 linking words and use them in sentences"],
+ abroad:["Read one university's exchange page and take notes","Watch a student vlog from my target country","Write or improve my self-introduction","Prepare 3 questions and ask an international student","Practice a short interview with a friend","Write part of my study plan","Check the English score and cost for one program","Learn 15 words for daily life abroad","Read a blog by an exchange student","Practice asking for help in a role play","Visit the international center and ask one question"],
+ other:["Watch one English video about my interest","Read aloud one short article","Read one graded reader","Write 3 diary sentences a day","Shadow one song or speech","Change my phone or game to English and note new words","Listen to one podcast episode","Watch one film scene with English subtitles","Learn 10 words about my interest","Write a short post or comment in English","Talk with a friend in English for 10 minutes","Read one news story and say my opinion aloud"]};
+var ACT_ALL=["Speak with an AI chat partner for 10 minutes","Use a language app for 10 minutes a day","Review my notes from last week"];
+var CHECKS=["I will record myself and listen.","I will take a vocabulary quiz.","I will count my words or pages.","I will use a timer.","I will ask a friend to check.","I will write down my practice test score.","I will show it at my learning community.","I will write the date in my study log.","I will check my status in the app.","I will compare it with last week.","I will ask an AI chat partner for feedback.","I will tell a friend or family member what I did."];
+var THEMES={ielts:["Speak for Two Minutes","One Band Up in Writing","120 Words for My Test","Faster Reading","Listening Without Fear"],abroad:["Find My University","Ready to Introduce Myself","My Study Abroad Plan","Daily Life in English","Talk with International Students"],other:["English for My Hobby","Small Steps Every Week","English Every Day","More Confident Speaking","My English Diary"]};
+var SMART=[
+ {k:"S",name:"Specific",def:"A specific goal is clear and exact.",items:["My goal names one clear skill (for example, speaking, not just \"English\").","My goal says what I will do.","My goal is not too big or too general.","Another person can understand my goal without asking me questions."],tip:"Make your goal clearer. For example, change \"improve speaking\" to \"speak about my hometown for two minutes without stopping.\""},
+ {k:"M",name:"Measurable",def:"A measurable goal has numbers or a clear way to check progress.",items:["My goal has a number in it (minutes, pages, words, times, score).","I can clearly see when I have finished my goal.","I can track my progress every week.","I know how I will test myself at the end."],tip:"Add numbers. For example, change \"learn new words\" to \"learn and use 120 new words.\""},
+ {k:"A",name:"Achievable",def:"An achievable goal is possible for you in six weeks, with your real life.",items:["I have enough free time for this goal, after homework and classes.","My goal matches my English level now (not too easy, not too hard).","I have the materials I need (books, apps, websites, partners).","In my busiest week at university, I can still do this goal."],tip:"Make your goal smaller. It is better to finish a small goal than to stop a big one."},
+ {k:"R",name:"Relevant",def:"A relevant goal helps you become the person in your Future Me drawing.",items:["This goal is a real step toward the Future Me in my drawing.","I really care about this goal. Nobody told me to choose it.","This goal fits my direction (a test, study abroad, or my own goal).","When I look at my drawing, I can see how this goal fits."],tip:"Look at your drawing one more time and choose a goal that helps that future you."},
+ {k:"T",name:"Time-bound",def:"A time-bound goal has a start date, an end date, and weekly steps.",items:["My plan has a start date and an end date, six weeks apart.","I know which days and times I will study.","I have a small step for each week, not only one big deadline.","I chose this time myself. It is outside homework and classes."],tip:"Go back to \"My time\" and choose your days and minutes."}];
+var REFLECT=["How many minutes did I really give this week?","What did I learn this week?","What worked well?","What was difficult?","Did I move one small step closer to my drawing? How?","What will I change next week?"];
+var LOOKBACK=["Did I reach my SMART goal? (Yes / Almost / Not yet)","How do I know?","Which activity helped me most?","What was difficult?","How did my learning community help me?","I am now one step closer to my Future Me because ...","My next step is ..."];
+
+var S={};
+try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+var storageOK=true;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOK=false;var n=document.getElementById("savednote");if(n)n.textContent="Answers are not saved here. Download your plan before you close this page."}}
+
+function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+var START="2026-10-22";
+var D={theme:THEME_DEFAULT};
+FOCUS.forEach(function(f,i){D["focus"+(i+1)]=f});
+function v(k){if(k==="start")return START;return S[k]!=null?S[k]:(D[k]||"")}
+function gt(){return GT[S.gtype]?S.gtype:"other"}
+function pdate(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||"");return m?new Date(+m[1],+m[2]-1,+m[3]):null}
+function fmt(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})}
+function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+function weekRange(n){var s=pdate(v("start"));if(!s)return "";return fmt(addDays(s,7*(n-1)))+" to "+fmt(addDays(s,7*n-1))}
+function endDate(){var s=pdate(v("start"));return s?fmt(addDays(s,41)):""}
+function startDate(){var s=pdate(v("start"));return s?fmt(s):""}
+function num(k){var n=parseInt(S[k],10);return isFinite(n)&&n>0?n:0}
+function timeLine(){var d=num("days"),m=num("mins");if(!d||!m)return "";return m+" minutes a day, "+d+" day"+(d>1?"s":"")+" a week ("+(d*m)+" minutes a week)"}
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function list(s){return String(s||"").split(",").map(function(x){return x.trim()}).filter(Boolean)}
+function chipsHTML(k,arr,multi){var cur=v(k),items=list(cur);
+  return '<div class="chips" data-for="'+k+'"'+(multi?' data-multi="1"':'')+'>'+arr.map(function(c){var on=multi?items.indexOf(String(c))>=0:String(cur)===String(c);return '<button type="button" class="chip" data-val="'+esc(c)+'" aria-pressed="'+on+'">'+esc(c)+'</button>'}).join("")+'</div>'}
+function field(k,label,o){o=o||{};var id="f-"+k,val=esc(v(k));
+  var inp=o.area?'<textarea id="'+id+'" data-k="'+k+'" rows="'+(o.rows||3)+'" placeholder="'+esc(o.ph||"")+'">'+val+'</textarea>'
+    :'<input id="'+id+'" data-k="'+k+'" type="'+(o.type||"text")+'"'+(o.type==="number"?' min="1" inputmode="numeric"':'')+' value="'+val+'" placeholder="'+esc(o.ph||"")+'">';
+  var ch=o.chips?chipsHTML(k,o.chips,o.multi):"";
+  if(o.chips){o.hint=(o.hint?o.hint+" ":"")+(o.fold?"Type your own answer, or open the ideas and choose one.":o.multi?"Click one or more answers, or type your own in the box.":"Click an answer, or type your own in the box.");if(!o.ph)o.ph="You can type your own answer here"}
+  if(ch&&o.fold)ch='<details class="ideas"><summary>'+esc(o.fold)+'</summary>'+ch+'</details>';
+  return '<div class="field"><label for="'+id+'">'+esc(label)+'</label>'+(o.hint?'<span class="hint">'+esc(o.hint)+'</span>':'')+(o.fold?inp+ch:ch+inp)+'</div>'}
+function head(n,title,lead){return '<div><div class="kicker">Step '+(n+1)+' of '+STEPS.length+'</div><h2>'+esc(title)+'</h2></div>'+(lead?'<p class="lead">'+lead+'</p>':'')}
+
+var step=Math.min(Math.max(parseInt(S._step,10)||0,0),STEPS.length-1), week=1;
+
+var R=[
+function(){return head(0,"Plan your next six weeks","This page helps you make your own English learning plan, one step at a time. At each step, you can click an answer in the menu or <mark>type your own answer</mark> in the box. You can also click an answer first and then change the words. At the end, you download a Word file that you can keep editing.")
+ +'<div class="free"><h3>This plan is <mark>your choice</mark>, in <mark>your free time</mark></h3><ul><li>Nobody gives you a grade for this plan. You do it to reach your own goal.</li><li>The time in this plan is extra. Homework time and class time do not count.</li><li>The plan is six weeks long for everyone. You decide how many minutes you give.</li><li>Each week you plan two or three activities. One of them is your learning community meeting.</li></ul></div>'
+ +'<div class="row">'+field("name","Name",{ph:"Your name"})+field("cls","Class",{ph:"Your class"})+'</div>'
+ +'<div class="row"><div class="field"><span class="qlabel">Start date</span><span class="hint">The same for everyone</span><p>'+startDate()+'</p></div><div class="field"><span class="qlabel">End date</span><span class="hint">Six weeks after the start</span><p data-live="end"></p></div></div>'
+ +'<div class="actions"><button type="button" class="btn link" data-act="example">Show me an example plan</button><button type="button" class="btn link" data-act="reset">Start again with an empty plan</button></div>'},
+
+function(){return head(1,"Look at your Future Me drawing","Take out your drawing and look at it again. Short answers are fine.")
+ +field("q1","In my drawing, where am I and what am I doing?",{area:1,rows:2,chips:["I am studying at a university abroad.","I am traveling in another country.","I am talking with international friends.","I am working with people from other countries.","I have the test score I wanted.","I am doing a homestay.","I am giving a presentation in English.","I am doing an internship or volunteer work abroad.","I am watching a sports game or a concert abroad.","I am helping foreign visitors in Japan."]})
+ +field("q2","How am I using English in my drawing?",{multi:1,hint:"You can choose more than one.",chips:["talking with people","studying abroad","reading","writing","working","traveling","watching films","making friends","giving presentations","listening to music or podcasts","playing games","using social media","shopping and ordering food"]})
+ +field("q3","What kind of person am I in my drawing? How do I feel?",{multi:1,chips:["confident","brave","curious","talkative","active","relaxed","friendly","independent","hardworking","excited","proud","calm","a little nervous but happy"]})
+ +field("q4","What is one thing in my drawing that I cannot do yet today?",{area:1,rows:2,chips:["I cannot speak English without stopping.","I cannot understand fast English.","I cannot write a long essay.","I do not know enough words.","I do not have the test score I need.","I cannot give a presentation in English.","I cannot read long texts quickly.","I cannot start a conversation with a stranger.","I cannot pronounce words clearly.","I cannot understand English without subtitles."]})},
+
+function(){var g=S.gtype;return head(2,"Choose your direction","Your drawing shows where you want to go. Now choose the road.")
+ +'<div class="field"><span class="qlabel">My goal for English is ...</span><div class="cards" data-for="gtype">'+Object.keys(GT).map(function(k){return '<button type="button" class="card" data-card="'+k+'" aria-pressed="'+(g===k)+'"><b>'+GT[k].label+'</b><span>'+GT[k].sub+'</span></button>'}).join("")+'</div></div>'
+ +field("gdetail","More exactly, I want ...",{chips:DETAIL[gt()],ph:"Type your own"})
+ +field("skill","Which English skill do I need most?",{multi:1,hint:"Choose one or two.",chips:["speaking","listening","reading","writing","vocabulary","grammar","pronunciation"]})
+ +field("why","Why is this skill important for the future me?",{area:1,rows:2,chips:["I need it for my test score.","I need it to live and study abroad.","I want to talk with people more easily.","I want to understand what I watch and read.","I want to make friends from other countries.","I need it for my classes in English.","I want more confidence.","I want to travel without help.","I need it for my future job.","It is my weakest skill now."]})},
+
+function(){return head(3,"Decide your time","The six weeks are fixed. The minutes are yours. Be honest about your university life.")
+ +'<div class="free"><p><b>This is <mark>free time that you choose to give</mark>.</b> It is outside your homework and your classes. A small plan that you keep is better than a big plan that you stop.</p></div>'
+ +'<div class="row">'+field("days","How many days a week?",{type:"number",chips:[1,2,3,4,5,6,7]})+field("mins","How many minutes each day?",{type:"number",chips:[5,10,15,20,25,30,45,60,90]})+'</div>'
+ +'<div data-live="total"></div>'
+ +field("when","When will I do it?",{multi:1,chips:["on the train","at lunch time","between classes","before bed","on weekend mornings","after my club or part-time job","early in the morning","after dinner","in my part-time job break","on Sunday evening"]})
+ +field("where","Where will I do it?",{multi:1,chips:["on the train","in the library","in my room","at a cafe","on campus","on the bus","in the student lounge","in an empty classroom","in the living room at home","in a park"]})
+ +field("backup","If I miss a day, I will ...",{chips:["do it the next day.","do a shorter 5-minute version.","add 15 minutes on Sunday.","move it to the weekend.","study with a friend the next day.","start again the next week and not give up."]})},
+
+function(){var h=head(4,"Write your SMART goal","Write one goal for these six weeks. It is one small step toward your Future Me. Then check it with the five questions.")
+ +field("draft","My goal (first draft)",{area:1,rows:3,fold:"Show example goals for "+GT[gt()].label,chips:GOALS[gt()],hint:"Use an example and change the numbers, or write your own."});
+ SMART.forEach(function(g){h+='<section class="smart" data-smart="'+g.k+'"><h3><i>'+g.k+'</i>'+g.name+'</h3><p class="hint">'+g.def+'</p>'
+  +g.items.map(function(t,i){var key="c"+g.k+i,cv=S[key];return '<div class="yn"><p>'+esc(t)+'</p><div class="seg" role="group" aria-label="'+esc(t)+'" data-yn="'+key+'"><button type="button" data-v="y" aria-pressed="'+(cv==="y")+'">Yes</button><button type="button" data-v="n" aria-pressed="'+(cv==="n")+'">No</button></div></div>'}).join("")
+  +'<div data-live="tip'+g.k+'"></div></section>'});
+ h+='<section class="smart"><h3>My final SMART goal</h3><p class="hint">Rewrite your goal with everything you checked.</p>'
+  +field("final","In six weeks, I will ...",{area:1,rows:3})
+  +'<div class="actions"><button type="button" class="btn link" data-act="copydraft">Use my first draft</button></div>'
+  +field("because","This goal will help me become the person in my drawing because ...",{area:1,rows:2,fold:"Show ideas",chips:["I need this skill for my test score.","I will use this skill when I study abroad.","it is my weakest skill now.","it will give me more confidence.","I can use it to talk with people in my drawing."]})+'</section>';
+ return h},
+
+function(){var h=head(5,"Give your six weeks a theme","A theme is a short title for your six weeks. Keep the shared theme, choose another one, or type your own.")
+ +field("theme","My theme",{chips:[THEME_DEFAULT].concat(THEMES[gt()])})
+ +'<div class="field"><span class="qlabel">The focus of each week</span><span class="hint">You can keep these or change them.</span></div>';
+ for(var i=1;i<=6;i++)h+=field("focus"+i,"Week "+i+" ("+weekRange(i)+")",{hint:FOCUSQ[i-1],fold:"Show ideas",chips:[FOCUS[i-1],"Vocabulary","Listening","Speaking","Reading","Writing","Pronunciation","Practice test","Review"]});
+ return h},
+
+function(){var w=week,h=head(6,"Plan each week","Plan two or three activities for each week. Activity 1 is always your learning community meeting. You choose Activity 2. Activity 3 is extra.")
+ +'<div class="tabs" role="group" aria-label="Weeks">';
+ for(var i=1;i<=6;i++)h+='<button type="button" data-week="'+i+'" aria-pressed="'+(i===w)+'">Week '+i+(S["w"+i+"a2"]?'<span class="dot" title="planned"></span>':'')+'</button>';
+ h+='</div><div><h3>Week '+w+': '+esc(v("focus"+w))+'</h3><p class="hint">'+weekRange(w)+(timeLine()?' · My time: '+esc(timeLine()):'')+'</p></div>'
+ +'<div class="act fixed"><span class="n">Activity 1</span><b>'+LC+'</b><p class="hint">'+LCNOTE+'</p></div>'
+ +'<div class="act"><span class="n">Activity 2 · my choice</span>'+field("w"+w+"a2","What I will do",{fold:"Show ideas",chips:ACTS[gt()].concat(ACT_ALL)})+'</div>'
+ +'<div class="act"><span class="n">Activity 3 · extra, only if I want</span>'+field("w"+w+"a3","What I will do",{fold:"Show ideas",chips:ACTS[gt()].concat(ACT_ALL)})+'</div>'
+ +field("w"+w+"when","Days and times this week",{ph:"Example: Tuesday and Friday, 20 minutes, on the train",fold:"Show ideas",chips:["Monday, Wednesday, Friday, 20 minutes","Tuesday and Thursday, 30 minutes","Every weekday, 15 minutes on the train","Saturday and Sunday, 45 minutes","Three days this week, 20 minutes before bed","Same days and times as last week"]})
+ +field("w"+w+"check","How I will check my progress",{fold:"Show ideas",chips:CHECKS})
+ +'<div class="actions">'+(w===1?'<button type="button" class="btn ghost" data-act="copyweek">Copy Week 1 to Weeks 2 to 6</button>':'')+(w<6?'<button type="button" class="btn ghost" data-week="'+(w+1)+'">Go to Week '+(w+1)+'</button>':'')+'</div>'
+ +'<p class="hint">After each week you write a short reflection. The Word file has a space for it.</p>';
+ return h},
+
+function(){function dd(t,val){return '<dt>'+esc(t)+'</dt><dd>'+(val?esc(val):'<span class="empty">not written yet</span>')+'</dd>'}
+ var miss=[];if(!v("name"))miss.push("your name");if(!v("final"))miss.push("your final SMART goal");if(!num("days")||!num("mins"))miss.push("your time");
+ var planned=0;for(var i=1;i<=6;i++)if(S["w"+i+"a2"])planned++;
+ var h=head(7,"Check and download","Read your plan. Go back to change anything. Then download it as a Word file and keep editing it each week.")
+ +(miss.length?'<p class="note">Still empty: '+miss.join(", ")+'. You can also fill these in later in Word.</p>':'')
+ +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("Six weeks",startDate()?startDate()+" to "+endDate():"")+dd("My direction",[S.gtype?GT[S.gtype].label:"",v("gdetail")].filter(Boolean).join(": "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+dd("Weeks planned",planned+" of 6")+'</dl>'
+ +'<div class="actions"><button type="button" class="btn" data-act="download" id="dl">Download Word file</button><button type="button" class="btn ghost" data-act="copy">Copy my plan as text</button></div>'
+ +'<p class="status" id="status" role="status"></p><textarea id="copyout" hidden readonly aria-label="My plan as text"></textarea>'
+ +'<p class="hint">Remember: this plan is your choice and your free time. Change it when your life changes.</p>';
+ return h}
+];
+
+function live(){
+  var e=document.querySelector('[data-live="end"]');if(e)e.textContent=endDate()||"Choose a start date";
+  var t=document.querySelector('[data-live="total"]');
+  if(t){var d=num("days"),m=num("mins"),h="";
+    if(d&&m){h='<div class="total"><span><b>'+(d*m)+'</b> minutes each week</span><span><b>'+(d*m*6)+'</b> minutes in six weeks</span></div>';
+      if(d>=7||d*m>300)h+='<p class="note">This is a big plan. Last semester, many students wrote that studying every day was too difficult. Can you keep this in your busiest week? If you are not sure, choose fewer days.</p>';}
+    t.innerHTML=h}
+  SMART.forEach(function(g){var el=document.querySelector('[data-live="tip'+g.k+'"]');if(!el)return;var no=false;g.items.forEach(function(_,i){if(S["c"+g.k+i]==="n")no=true});
+    var h=no?'<p class="note">'+esc(g.tip)+'</p>':"";
+    if(g.k==="M"&&v("draft")&&!/\d/.test(v("final")||v("draft")))h+='<p class="note">I cannot find a number in your goal yet. Add minutes, words, pages, times, or a score.</p>';
+    el.innerHTML=h});
+}
+function render(focus){
+  var m=document.getElementById("main");m.innerHTML=R[step]();
+  document.getElementById("rail").innerHTML=STEPS.map(function(s,i){return '<li class="'+(i===step?"now":i<step?"done":"")+'"><button type="button" data-step="'+i+'"'+(i===step?' aria-current="step"':'')+' aria-label="Step '+(i+1)+': '+s+'"><span class="bar"></span><span class="t">'+(i+1)+'. '+s+'</span></button></li>'}).join("");
+  document.getElementById("back").disabled=step===0;
+  var nx=document.getElementById("next");nx.hidden=step===STEPS.length-1;nx.textContent=step===0?"Start":"Next";
+  document.getElementById("count").textContent=(step+1)+" / "+STEPS.length;
+  live();
+  if(focus){window.scrollTo(0,0);m.focus({preventScroll:true})}
+}
+function go(i){step=Math.min(Math.max(i,0),STEPS.length-1);S._step=step;save();render(true)}
+
+document.getElementById("back").addEventListener("click",function(){go(step-1)});
+document.getElementById("next").addEventListener("click",function(){go(step+1)});
+document.getElementById("rail").addEventListener("click",function(e){var b=e.target.closest("[data-step]");if(b)go(+b.dataset.step)});
+
+var main=document.getElementById("main");
+main.addEventListener("input",function(e){var k=e.target.dataset.k;if(!k)return;S[k]=e.target.value;save();
+  var box=main.querySelector('.chips[data-for="'+k+'"]');if(box)syncChips(box,k);live()});
+function syncChips(box,k){var multi=box.dataset.multi,cur=String(S[k]==null?"":S[k]),items=list(cur);
+  box.querySelectorAll(".chip").forEach(function(c){c.setAttribute("aria-pressed",multi?items.indexOf(c.dataset.val)>=0:cur===c.dataset.val)})}
+var resetArmed=false;
+main.addEventListener("click",function(e){
+  var c=e.target.closest(".chip");
+  if(c){var box=c.parentNode,k=box.dataset.for,val=c.dataset.val;
+    if(box.dataset.multi){var it=list(S[k]),ix=it.indexOf(val);if(ix>=0)it.splice(ix,1);else it.push(val);S[k]=it.join(", ")}
+    else S[k]=(String(S[k])===val)?"":val;
+    var inp=document.getElementById("f-"+k);if(inp)inp.value=S[k];save();syncChips(box,k);live();return}
+  var card=e.target.closest("[data-card]");
+  if(card){S.gtype=card.dataset.card;save();render(false);return}
+  var yn=e.target.closest(".seg button");
+  if(yn){var key=yn.parentNode.dataset.yn;S[key]=yn.dataset.v;save();yn.parentNode.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b===yn)});live();return}
+  var wk=e.target.closest("[data-week]");
+  if(wk){week=+wk.dataset.week;render(true);return}
+  var a=e.target.closest("[data-act]");if(!a)return;var act=a.dataset.act;
+  if(act==="copydraft"){S.final=v("draft");save();document.getElementById("f-final").value=S.final;live()}
+  else if(act==="copyweek"){for(var i=2;i<=6;i++)["a2","a3","when","check"].forEach(function(f){if(!S["w"+i+f])S["w"+i+f]=S["w1"+f]||""});save();render(false);a=main.querySelector('[data-act="copyweek"]');if(a)a.textContent="Copied to empty weeks"}
+  else if(act==="example"){S=example();save();render(false)}
+  else if(act==="reset"){if(!resetArmed){resetArmed=true;a.textContent="Click again to delete all my answers";return}resetArmed=false;S={};save();render(false)}
+  else if(act==="download")download();
+  else if(act==="copy")copyText();
+});
+
+function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",gtype:"ielts",gdetail:"IELTS 6.0",skill:"speaking",why:"I need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:GOALS.ielts[0],final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
+  SMART.forEach(function(g){g.items.forEach(function(_,i){e["c"+g.k+i]="y"})});
+  var a2=["Record a 2-minute talk and listen to it","Record a 2-minute talk and listen to it","Read one sample answer and note useful phrases","Record a 2-minute talk and listen to it","Do a full speaking practice with a friend","Record my best 2-minute talk and compare it with Week 1"];
+  for(var i=1;i<=6;i++){e["w"+i+"a2"]=a2[i-1];e["w"+i+"a3"]=i%2?"Learn 20 topic words":"";e["w"+i+"when"]="Monday, Wednesday, Friday, 20 minutes";e["w"+i+"check"]="I will record myself and listen."}
+  return e}
+
+/* ---------- plan as plain data ---------- */
+function plan(){var p={title:"My 6-Week English Learning Plan",who:[v("name")&&"Name: "+v("name"),v("cls")&&"Class: "+v("cls")].filter(Boolean).join("    ")||"Name:                    Class:",
+  dates:startDate()?startDate()+" to "+endDate():"",theme:v("theme"),
+  part1:[["In my drawing, where am I and what am I doing?",v("q1")],["How am I using English in my drawing?",v("q2")],["What kind of person am I in my drawing? How do I feel?",v("q3")],["What is one thing in my drawing that I cannot do yet today?",v("q4")]],
+  part2:[["My goal for English",[S.gtype?GT[S.gtype].label:"",v("gdetail")].filter(Boolean).join(": ")],["The skill I need most",v("skill")],["Why this skill is important for the future me",v("why")]],
+  time:[["My free time each week",timeLine()],["When",v("when")],["Where",v("where")],["If I miss a day, I will ...",v("backup")]],
+  draft:v("draft"),final:v("final"),because:v("because"),weeks:[]};
+  p.checks=SMART.map(function(g){return {k:g.k,name:g.name,rows:g.items.map(function(t,i){var c=S["c"+g.k+i];return [t,c==="y"?"Yes":c==="n"?"No":""]})}});
+  for(var i=1;i<=6;i++)p.weeks.push({n:i,range:weekRange(i),focus:v("focus"+i),a2:v("w"+i+"a2"),a3:v("w"+i+"a3"),when:v("w"+i+"when"),check:v("w"+i+"check")});
+  return p}
+
+function planText(){var p=plan(),o=[p.title,p.who,p.dates?"Six weeks: "+p.dates:"",p.theme?"Theme: "+p.theme:"","","This plan is my choice. I do it in my free time, outside homework and classes.","","PART 1: MY FUTURE ME"];
+  p.part1.forEach(function(r){o.push(r[0],"  "+r[1])});o.push("","PART 2: MY DIRECTION");p.part2.forEach(function(r){o.push(r[0]+": "+r[1])});
+  o.push("","PART 3: MY TIME");p.time.forEach(function(r){o.push(r[0]+": "+r[1])});
+  o.push("","PART 4: MY SMART GOAL","First draft: "+p.draft,"Final goal: "+p.final,"This goal will help me become the person in my drawing because "+p.because,"","PART 5: MY WEEKLY PLAN");
+  p.weeks.forEach(function(w){o.push("","Week "+w.n+" ("+w.range+"): "+w.focus,"  Activity 1: "+LC,"  Activity 2: "+w.a2,"  Activity 3 (extra): "+w.a3,"  Days and times: "+w.when,"  How I will check: "+w.check,"  Reflection:");REFLECT.forEach(function(q){o.push("    "+q)})});
+  o.push("","PART 6: LOOKING BACK");LOOKBACK.forEach(function(q){o.push("  "+q)});return o.join("\n")}
+
+/* ---------- Word (.docx) ---------- */
+function x(s){return String(s==null?"":s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function run(t,o){o=o||{};var parts=String(t==null?"":t).split("\n");
+  return '<w:r><w:rPr>'+(o.b?'<w:b/>':'')+(o.i?'<w:i/>':'')+(o.color?'<w:color w:val="'+o.color+'"/>':'')+(o.sz?'<w:sz w:val="'+o.sz+'"/>':'')+'</w:rPr>'+parts.map(function(s,i){return (i?'<w:br/>':'')+'<w:t xml:space="preserve">'+x(s)+'</w:t>'}).join("")+'</w:r>'}
+function para(t,o){o=o||{};return '<w:p><w:pPr>'+(o.style?'<w:pStyle w:val="'+o.style+'"/>':'')+(o.pb?'<w:pageBreakBefore/>':'')+(o.fill?'<w:shd w:val="clear" w:color="auto" w:fill="'+o.fill+'"/>':'')+'</w:pPr>'+(Array.isArray(t)?t.join(""):run(t,o))+'</w:p>'}
+var W=9026;
+function table(rows,widths,o){o=o||{};var b=function(n){return '<w:'+n+' w:val="single" w:sz="4" w:space="0" w:color="AEB8CA"/>'};
+  var h='<w:tbl><w:tblPr><w:tblW w:w="'+W+'" w:type="dxa"/><w:tblBorders>'+["top","left","bottom","right","insideH","insideV"].map(b).join("")+'</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="90" w:type="dxa"/><w:left w:w="110" w:type="dxa"/><w:bottom w:w="90" w:type="dxa"/><w:right w:w="110" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+widths.map(function(w){return '<w:gridCol w:w="'+w+'"/>'}).join("")+'</w:tblGrid>';
+  rows.forEach(function(r,ri){h+='<w:tr>'+(o.minH&&!(o.header&&ri===0)?'<w:trPr><w:trHeight w:val="'+o.minH+'" w:hRule="atLeast"/></w:trPr>':'');
+    r.forEach(function(c,ci){var shade=(o.header&&ri===0)||(o.labelCol&&ci===0);
+      h+='<w:tc><w:tcPr><w:tcW w:w="'+widths[ci]+'" w:type="dxa"/>'+(shade?'<w:shd w:val="clear" w:color="auto" w:fill="E5ECF9"/>':'')+'</w:tcPr>'+para(c,{b:shade,style:"Cell"})+'</w:tc>'});
+    h+='</w:tr>'});
+  return h+'</w:tbl>'+para("",{style:"Cell"})}
+function documentXml(){var p=plan(),b="";
+  b+=para(p.title,{style:"Title"});
+  b+=para(p.who);
+  b+=para("Six weeks: "+(p.dates||"            to            ")+(p.theme?"    Theme: "+p.theme:""));
+  b+=para([run("This plan is my choice. ",{b:1}),run("I work on it in my free time. It is outside my homework and my classes. The six weeks are fixed, and I decide how many minutes I give.")],{fill:"FFF1B8"});
+  b+=para("Part 1: My Future Me",{style:"Heading1"});
+  b+=table([["Question","My answer"]].concat(p.part1),[3900,W-3900],{header:1});
+  b+=para("Part 2: My direction",{style:"Heading1"});
+  b+=table(p.part2,[3200,W-3200],{labelCol:1});
+  b+=para("Part 3: My time",{style:"Heading1"});
+  b+=para("This is free time that I choose to give. Homework time and class time do not count.",{i:1});
+  b+=table(p.time,[3200,W-3200],{labelCol:1});
+  b+=para("Part 4: My SMART goal",{style:"Heading1"});
+  b+=table([["My first draft",p.draft]],[2200,W-2200],{labelCol:1});
+  p.checks.forEach(function(g){b+=para(g.k+": "+g.name,{style:"Heading2"});b+=table(g.rows,[W-1300,1300],{})});
+  b+=para("My final SMART goal",{style:"Heading2"});
+  b+=table([["In six weeks, I will ...",p.final],["This goal will help me become the person in my drawing because ...",p.because]],[3200,W-3200],{labelCol:1,minH:700});
+  b+=para("Part 5: My weekly plan",{style:"Heading1",pb:1});
+  b+=para("Each week I plan two or three activities. Activity 1 is always my learning community meeting. My learning community has its own plan and schedule.");
+  p.weeks.forEach(function(w,i){
+    b+=para("Week "+w.n+": "+w.focus+(w.range?"  ("+w.range+")":""),{style:"Heading2",pb:i>0&&i%2===0});
+    b+=table([["Activity","What I will do","Done"],["1. Learning community",LC,""],["2. My choice",w.a2,""],["3. My choice (extra)",w.a3,""]],[2400,W-2400-1000,1000],{header:1});
+    b+=table([["Days and times",w.when],["How I will check my progress",w.check]],[3200,W-3200],{labelCol:1});
+    b+=para("Week "+w.n+" reflection",{b:1});
+    b+=table(REFLECT.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:480})});
+  b+=para("Part 6: Looking back",{style:"Heading1",pb:1});
+  b+=para("Answer after Week 6. Look at your Future Me drawing one more time.");
+  b+=table(LOOKBACK.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:700});
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+b+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>'}
+var STYLES='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="Yu Gothic" w:cs="Arial"/><w:sz w:val="21"/><w:szCs w:val="21"/><w:lang w:val="en-US" w:eastAsia="ja-JP"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="140" w:line="276" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>'
+ +'<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style>'
+ +'<w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:pPr><w:spacing w:after="160"/></w:pPr><w:rPr><w:b/><w:color w:val="2A4A9A"/><w:sz w:val="40"/><w:szCs w:val="40"/></w:rPr></w:style>'
+ +'<w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:pPr><w:keepNext/><w:spacing w:before="320" w:after="140"/><w:outlineLvl w:val="0"/></w:pPr><w:rPr><w:b/><w:color w:val="2A4A9A"/><w:sz w:val="30"/><w:szCs w:val="30"/></w:rPr></w:style>'
+ +'<w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:qFormat/><w:pPr><w:keepNext/><w:spacing w:before="220" w:after="100"/><w:outlineLvl w:val="1"/></w:pPr><w:rPr><w:b/><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr></w:style>'
+ +'<w:style w:type="paragraph" w:styleId="Cell"><w:name w:val="Cell"/><w:basedOn w:val="Normal"/><w:pPr><w:spacing w:after="0" w:line="252" w:lineRule="auto"/></w:pPr></w:style></w:styles>';
+function buildDocx(){var zz=new JSZip(),z={file:function(n,d){zz.file(n,d,{createFolders:false})}};
+  z.file("[Content_Types].xml",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>');
+  z.file("_rels/.rels",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+  z.file("word/_rels/document.xml.rels",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+  z.file("word/document.xml",documentXml());z.file("word/styles.xml",STYLES);
+  return zz.generateAsync({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",compression:"DEFLATE"})}
+window.__buildDocx=buildDocx;window.__planText=planText;
+
+function fileName(){var n=String(v("name")||"").trim().replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g,"-");return "6-week-plan"+(n?"-"+n:"")+".docx"}
+function say(t){var s=document.getElementById("status");if(s)s.textContent=t}
+function linkSave(blob,name){var u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
+var saver=(window.claude&&window.claude.use)?window.claude.use("downloads").catch(function(){return null}):null;
+function download(){var btn=document.getElementById("dl");
+  if(typeof JSZip==="undefined"){say("The Word export could not load. Use \"Copy my plan as text\" and paste it into Word.");return}
+  btn.disabled=true;say("Making your Word file ...");
+  buildDocx().then(function(blob){var name=fileName();
+    if(!saver){linkSave(blob,name);say("Your Word file is downloading.");return}
+    return saver.then(function(d){
+      if(!d){if(window.self===window.top){linkSave(blob,name);say("Your Word file is downloading.")}else say("Download is not available in this view. Use \"Copy my plan as text\" and paste it into Word.");return}
+      return d.save({filename:name,data:blob}).then(function(){say("Saved. Open the file in Word and keep editing it each week.")},function(err){var c=err&&err.code;
+        say(c==="declined"?"No file was saved. Click the button again when you are ready.":c==="rate_limited"?"Please wait a moment, then try again.":"Download is not available in this view. Use \"Copy my plan as text\" and paste it into Word.")})})
+  }).catch(function(){say("The file could not be made. Use \"Copy my plan as text\" instead.")}).then(function(){btn.disabled=false})}
+function copyText(){var t=planText(),out=document.getElementById("copyout");
+  function show(){out.hidden=false;out.value=t;out.focus();out.select();say("Select all of the text below and copy it.")}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){say("Copied. Paste it into Word or another app.")},show);else show()}
+
+render(false);
+})();
+</script>
+</body>
+</html>
