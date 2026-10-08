@@ -1,4 +1,4 @@
-# My 6-Week English Plan
+# My English Learning Plan
 
 A static site with no build step. Students answer eight steps and download their plan as a Word (.docx) file.
 
@@ -19,6 +19,6 @@ To update the site later, drag the new folder onto the site's Deploys page.
 
 ## Change the content
 
-All menus and texts are near the top of the script in index.html. The fixed start date is the line `var START="2026-10-22";`.
+All menus and texts are near the top of the script in index.html. The default start date is the line `var START="2026-10-22";`. Students can change the date and choose a 4-week or 6-week plan.
 
 Answers are saved only in each student's own browser. Nothing is sent to a server.

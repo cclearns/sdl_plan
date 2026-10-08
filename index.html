@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>My 6-Week English Plan</title>
+<title>My English Learning Plan</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Zen+Maru+Gothic:wght@500;700&display=swap">
 <style>
 /* Layout: one narrow notebook column; a numbered step rail on top, one step on screen, a sticky Back/Next bar below. */
@@ -145,7 +145,7 @@ dl.sum dd{margin:0;min-width:0;overflow-wrap:anywhere}
 
 <div class="wrap">
   <header class="top">
-    <h1>My 6-Week English Plan</h1>
+    <h1>My English Learning Plan</h1>
     <small id="savednote">Your answers are saved on this device.</small>
   </header>
   <nav aria-label="Steps"><ol class="rail" id="rail"></ol></nav>
@@ -172,9 +172,9 @@ var LCNOTE="Your learning community has its own plan and schedule. Follow that p
 var GT={ielts:{label:"IELTS or another test",sub:"I want a score."},abroad:{label:"Study abroad",sub:"I want to study in another country."},other:{label:"Something else",sub:"I have my own goal."}};
 var DETAIL={ielts:["IELTS 5.0","IELTS 5.5","IELTS 6.0","IELTS 6.5","IELTS 7.0","TOEFL iBT 70","TOEFL iBT 80","TOEIC 600","TOEIC 700","TOEIC 800","EIKEN Grade Pre-1"],abroad:["An exchange program in Australia","One semester in Canada","A short summer program","A university in Europe","One year in the United States","A homestay in New Zealand","A language school in the Philippines","A university in Asia with classes in English","A working holiday"],other:["Make international friends","Travel alone in another country","Watch films without subtitles","Use English in my future job","Give a presentation in English","Read English books for fun","Understand songs and games in English","Talk with tourists in Japan","Join an international club or event","Get a part-time job that uses English"]};
 var GOALS={
- ielts:["Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week).","Write 6 IELTS Task 2 essays of 250 words, one each week, in 40 minutes each.","Learn and use 120 IELTS words in 6 weeks (20 each week) and pass my own quiz each week.","Finish 6 IELTS listening practice tests, one each week, and write down my score.","Read 12 IELTS reading passages (2 each week) with a 20-minute timer for each.","Write 6 IELTS Task 1 answers of 150 words, one each week, in 20 minutes each.","Take one full practice test in Week 1 and one in Week 6, and raise my score by 0.5."],
- abroad:["Research 3 exchange programs and write a 150-word self-introduction for one of them by Week 6.","Talk with an international student for 10 minutes every week for 6 weeks.","Write a 300-word study plan for my exchange application by Week 6.","Watch 12 student vlogs from my target country and write 5 useful phrases from each.","Learn 90 words for daily life abroad (15 each week) and use them in 6 short role plays.","Compare the cost, classes, and housing of 3 universities in a one-page table by Week 6.","Give a 3-minute talk about my study abroad plan to my learning community in Week 6."],
- other:["Read aloud one short article (about 300 words) 3 times a week for 6 weeks and record the last one.","Watch 12 English videos about my hobby and write 5 new words from each.","Read 6 graded readers, one each week, and write 3 sentences about each.","Keep an English diary, 3 sentences a day, 4 days a week for 6 weeks.","Listen to one English podcast episode 3 times a week and write a 2-sentence summary each time.","Shadow one 1-minute speech or song each week for 6 weeks and record it.","Learn 60 words about my interest (10 each week) and use them in a 2-minute talk in Week 6.","Have a 10-minute English conversation with a friend or an AI chat partner twice a week."]};
+ ielts:["Record {x2} two-minute talks for IELTS Speaking Part 2 in {W} weeks (2 each week).","Write {x1} IELTS Task 2 essays of 250 words, one each week, in 40 minutes each.","Learn and use {x20} IELTS words in {W} weeks (20 each week) and pass my own quiz each week.","Finish {x1} IELTS listening practice tests, one each week, and write down my score.","Read {x2} IELTS reading passages (2 each week) with a 20-minute timer for each.","Write {x1} IELTS Task 1 answers of 150 words, one each week, in 20 minutes each.","Take one full practice test in Week 1 and one in Week {W}, and raise my score by 0.5."],
+ abroad:["Research 3 exchange programs and write a 150-word self-introduction for one of them by Week {W}.","Talk with an international student for 10 minutes every week for {W} weeks.","Write a 300-word study plan for my exchange application by Week {W}.","Watch {x2} student vlogs from my target country and write 5 useful phrases from each.","Learn {x15} words for daily life abroad (15 each week) and use them in {x1} short role plays.","Compare the cost, classes, and housing of 3 universities in a one-page table by Week {W}.","Give a 3-minute talk about my study abroad plan to my learning community in Week {W}."],
+ other:["Read aloud one short article (about 300 words) 3 times a week for {W} weeks and record the last one.","Watch {x2} English videos about my hobby and write 5 new words from each.","Read {x1} graded readers, one each week, and write 3 sentences about each.","Keep an English diary, 3 sentences a day, 4 days a week for {W} weeks.","Listen to one English podcast episode 3 times a week and write a 2-sentence summary each time.","Shadow one 1-minute speech or song each week for {W} weeks and record it.","Learn {x10} words about my interest (10 each week) and use them in a 2-minute talk in Week {W}.","Have a 10-minute English conversation with a friend or an AI chat partner twice a week."]};
 var ACTS={
  ielts:["Record a 2-minute talk and listen to it","Do one reading passage with a timer","Write one Task 2 essay and check it with the band descriptors","Learn 20 topic words","Do one listening practice test","Read one sample essay and note useful phrases","Write one Task 1 answer in 20 minutes","Practice Speaking Part 1 questions with a friend","Review my mistakes from the last practice test","Watch one video with IELTS tips and take notes","Learn 10 linking words and use them in sentences"],
  abroad:["Read one university's exchange page and take notes","Watch a student vlog from my target country","Write or improve my self-introduction","Prepare 3 questions and ask an international student","Practice a short interview with a friend","Write part of my study plan","Check the English score and cost for one program","Learn 15 words for daily life abroad","Read a blog by an exchange student","Practice asking for help in a role play","Visit the international center and ask one question"],
@@ -185,28 +185,35 @@ var THEMES={ielts:["Speak for Two Minutes","One Band Up in Writing","120 Words f
 var SMART=[
  {k:"S",name:"Specific",def:"A specific goal is clear and exact.",items:["My goal names one clear skill (for example, speaking, not just \"English\").","My goal says what I will do.","My goal is not too big or too general.","Another person can understand my goal without asking me questions."],tip:"Make your goal clearer. For example, change \"improve speaking\" to \"speak about my hometown for two minutes without stopping.\""},
  {k:"M",name:"Measurable",def:"A measurable goal has numbers or a clear way to check progress.",items:["My goal has a number in it (minutes, pages, words, times, score).","I can clearly see when I have finished my goal.","I can track my progress every week.","I know how I will test myself at the end."],tip:"Add numbers. For example, change \"learn new words\" to \"learn and use 120 new words.\""},
- {k:"A",name:"Achievable",def:"An achievable goal is possible for you in six weeks, with your real life.",items:["I have enough free time for this goal, after homework and classes.","My goal matches my English level now (not too easy, not too hard).","I have the materials I need (books, apps, websites, partners).","In my busiest week at university, I can still do this goal."],tip:"Make your goal smaller. It is better to finish a small goal than to stop a big one."},
+ {k:"A",name:"Achievable",def:"An achievable goal is possible for you in {Wd} weeks, with your real life.",items:["I have enough free time for this goal, after homework and classes.","My goal matches my English level now (not too easy, not too hard).","I have the materials I need (books, apps, websites, partners).","In my busiest week at university, I can still do this goal."],tip:"Make your goal smaller. It is better to finish a small goal than to stop a big one."},
  {k:"R",name:"Relevant",def:"A relevant goal helps you become the person you want to be one year from now.",items:["This goal is a real step toward my Future Me.","I really care about this goal. Nobody told me to choose it.","This goal fits my direction (a test, study abroad, or my own goal).","When I think about my Future Me, I can see how this goal fits."],tip:"Think about your Future Me one more time and choose a goal that helps that future you."},
- {k:"T",name:"Time-bound",def:"A time-bound goal has a start date, an end date, and weekly steps.",items:["My plan has a start date and an end date, six weeks apart.","I know which days and times I will study.","I have a small step for each week, not only one big deadline.","I chose this time myself. It is outside homework and classes."],tip:"Go back to \"My time\" and choose your days and minutes."}];
+ {k:"T",name:"Time-bound",def:"A time-bound goal has a start date, an end date, and weekly steps.",items:["My plan has a start date and an end date, {Wd} weeks apart.","I know which days and times I will study.","I have a small step for each week, not only one big deadline.","I chose this time myself. It is outside homework and classes."],tip:"Go back to \"My time\" and choose your days and minutes."}];
 var DOHEAD=["Activity","Did I do it? (Yes / Partly / No)","What I really did (days, minutes, amount)"];
 var REFLECT=["Did I follow my plan this week? (Yes / Mostly / Not really) Why?","What was the result of my progress check?","What did I learn this week?","What worked well?","What was difficult?","Did I move one small step closer to my Future Me? How?","What will I change in next week's plan?"];
-var LOOKBACK=["Did I reach my SMART goal? (Yes / Almost / Not yet)","How do I know?","Which activity helped me most?","What was difficult?","How well did I follow my plan in the six weeks? (Plan, Do, Check)","How did my learning community help me?","I am now one step closer to my Future Me because ...","My next step is ..."];
+var LOOKBACK=["Did I reach my SMART goal? (Yes / Almost / Not yet)","How do I know?","Which activity helped me most?","What was difficult?","How well did I follow my plan in the {Wd} weeks? (Plan, Do, Check)","How did my learning community help me?","I am now one step closer to my Future Me because ...","My next step is ..."];
 
 var PDC='<div class="pdc"><div><b>1. Plan</b><span>Write what, when, how long, and how you will check.</span></div><div><b>2. Do</b><span>Follow your plan during the week and record what you really did.</span></div><div><b>3. Check</b><span>Compare your plan with what you did. Change next week\'s plan.</span></div></div>';
 var GRADE='<div class="grade"><h3>How your plan is graded</h3><ol><li><b>How detailed your plan is.</b> A detailed plan says what you will do, on which days, for how many minutes, and how you will check.</li><li><b>How well you follow your plan.</b> Each week you Plan, Do, and Check. You record what you really did and compare it with your plan.</li></ol>'+PDC+'<p class="hint">An honest record is better than a perfect one. If you could not follow your plan, write why and change the next week.</p></div>';
 function detail(n){var a=String(S["w"+n+"a2"]||""),wh=String(S["w"+n+"when"]||""),ck=String(S["w"+n+"check"]||"");
   return [["Activity 2 says what I will do",!!a.trim()],["Days and times are written",!!wh.trim()],["My plan has a number (minutes, pages, words, or times)",/\d/.test(a+" "+wh)],["I wrote how I will check my progress",!!ck.trim()]]}
+function p8(){var a=[];for(var i=1;i<=NW();i++)a.push(i);return a}
 function dscore(n){return detail(n).filter(function(x){return x[1]}).length}
 var S={};
 try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+delete S["undefined"];
 var storageOK=true;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOK=false;var n=document.getElementById("savednote");if(n)n.textContent="Answers are not saved here. Download your plan before you close this page."}}
 
 function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 var START="2026-10-22";
 var D={theme:THEME_DEFAULT};
-FOCUS.forEach(function(f,i){D["focus"+(i+1)]=f});
-function v(k){if(k==="start")return START;return S[k]!=null?S[k]:(D[k]||"")}
+var FOCUS4=["Start","Take in","Give out","Show"];
+var FQ={};FOCUS.forEach(function(f,i){FQ[f]=FOCUSQ[i]});
+function NW(){return String(S.weeks)==="4"?4:6}
+function NWD(){return NW()===4?"four":"six"}
+function focusList(){return NW()===4?FOCUS4:FOCUS}
+function tpl(t){return String(t).replace(/\{x(\d+)\}/g,function(_,n){return NW()*+n}).replace(/\{W\}/g,NW()).replace(/\{Wd\}/g,NWD())}
+function v(k){if(k==="start")return S.start||START;var f=/^focus(\d)$/.exec(k);if(f&&S[k]==null)return focusList()[+f[1]-1]||"";return S[k]!=null?S[k]:(D[k]||"")}
 var GOALOPTS=[["Get an IELTS score","ielts"],["Get a TOEFL or TOEIC score","ielts"],["Join an exchange program","abroad"],["Join a short program abroad","abroad"],["Be ready for daily life abroad","abroad"],["Make international friends","other"],["Travel in English","other"],["Watch films and videos without subtitles","other"],["Use English in my future job","other"],["Give presentations in English","other"],["Read English books and news","other"],["Do well in my classes in English","other"]];
 var GMAX=3,gmsg="";
 function goals(){return Array.isArray(S.goals)?S.goals:[]}
@@ -221,12 +228,12 @@ function goalExamples(){var sk=list(S.skill),c=cats(),all=[];if(!c.length)c=["ie
   var per=Math.max(2,Math.ceil(8/c.length));
   all.sort(function(a,b){return (b.m-a.m)||(a.ci-b.ci)||(a.i-b.i)});
   var cnt={},out=[];all.forEach(function(x){cnt[x.ci]=cnt[x.ci]||0;if(cnt[x.ci]<per&&out.length<8){cnt[x.ci]++;out.push(x)}});
-  out.sort(function(a,b){return (a.ci-b.ci)||(b.m-a.m)||(a.i-b.i)});return out.map(function(x){return x.t})}
+  out.sort(function(a,b){return (a.ci-b.ci)||(b.m-a.m)||(a.i-b.i)});return out.map(function(x){return tpl(x.t)})}
 function pdate(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||"");return m?new Date(+m[1],+m[2]-1,+m[3]):null}
 function fmt(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})}
 function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
 function weekRange(n){var s=pdate(v("start"));if(!s)return "";return fmt(addDays(s,7*(n-1)))+" to "+fmt(addDays(s,7*n-1))}
-function endDate(){var s=pdate(v("start"));return s?fmt(addDays(s,41)):""}
+function endDate(){var s=pdate(v("start"));return s?fmt(addDays(s,7*NW()-1)):""}
 function startDate(){var s=pdate(v("start"));return s?fmt(s):""}
 function num(k){var n=parseInt(S[k],10);return isFinite(n)&&n>0?n:0}
 function timeLine(){var d=num("days"),m=num("mins");if(!d||!m)return "";return m+" minutes a day, "+d+" day"+(d>1?"s":"")+" a week ("+(d*m)+" minutes a week)"}
@@ -247,10 +254,11 @@ function head(n,title,lead){return '<div><div class="kicker">Step '+(n+1)+' of '
 var step=Math.min(Math.max(parseInt(S._step,10)||0,0),STEPS.length-1), week=1;
 
 var R=[
-function(){return head(0,"Plan your next six weeks","This page helps you make your own English learning plan, one step at a time. At each step, you can click an answer in the menu or <mark>type your own answer</mark> in the box. You can also click an answer first and then change the words. At the end, you download a Word file that you can keep editing.")
- +'<div class="free"><h3>This plan is <mark>your choice</mark>, in <mark>your free time</mark></h3><ul><li>You choose the goal, the activities, and the time.</li><li>The time in this plan is extra. Homework time and class time do not count.</li><li>The plan is six weeks long for everyone. You decide how many minutes you give.</li><li>Each week you plan two or three activities. One of them is your learning community meeting.</li></ul></div>'
+function(){return head(0,"Plan your next "+NWD()+" weeks","This page helps you make your own English learning plan, one step at a time. At each step, you can click an answer in the menu or <mark>type your own answer</mark> in the box. You can also click an answer first and then change the words. At the end, you download a Word file that you can keep editing.")
+ +'<div class="free"><h3>This plan is <mark>your choice</mark>, in <mark>your free time</mark></h3><ul><li>You choose the goal, the activities, and the time.</li><li>The time in this plan is extra. Homework time and class time do not count.</li><li>You choose a 4-week or a 6-week plan. You decide how many minutes you give.</li><li>Each week you plan two or three activities. One of them is your learning community meeting.</li></ul></div>'
  +GRADE+'<div class="row">'+field("name","Name",{ph:"Your name"})+field("cls","Class",{ph:"Your class"})+'</div>'
- +'<div class="row"><div class="field"><span class="qlabel">Start date</span><span class="hint">The same for everyone</span><p>'+startDate()+'</p></div><div class="field"><span class="qlabel">End date</span><span class="hint">Six weeks after the start</span><p data-live="end"></p></div></div>'
+ +'<div class="field"><span class="qlabel">How long is my plan?</span><span class="hint">Choose 4 weeks or 6 weeks.</span><div class="chips">'+[4,6].map(function(n){return '<button type="button" class="chip" data-len="'+n+'" aria-pressed="'+(NW()===n)+'">'+n+' weeks</button>'}).join("")+'</div></div>'
+ +'<div class="row">'+field("start","Start date",{type:"date",hint:"You can change the date."})+'<div class="field"><span class="qlabel">End date</span><span class="hint" data-live="endhint"></span><p data-live="end"></p></div></div>'
  +'<div class="actions"><button type="button" class="btn link" data-act="example">Show me an example plan</button><button type="button" class="btn link" data-act="reset">Start again with an empty plan</button></div>'},
 
 function(){return head(1,"Picture your Future Me","Take out your Future Me drawing and look at it again. <mark>No drawing?</mark> Close your eyes and imagine yourself one year from now. Short answers are fine.")
@@ -270,7 +278,7 @@ function(){var g=goals(),opts=GOALOPTS.map(function(x){return x[0]});g.forEach(f
  +field("skill","Which English skill do I need most?",{multi:1,hint:"Choose one or two.",chips:["speaking","listening","reading","writing","vocabulary","grammar","pronunciation"]})
  +field("why","Why is this skill important for the future me?",{area:1,rows:3,multi:1,max:3,chips:["I need it for my test score.","I need it to live and study abroad.","I want to talk with people more easily.","I want to understand what I watch and read.","I want to make friends from other countries.","I need it for my classes in English.","I want more confidence.","I want to travel without help.","I need it for my future job.","It is my weakest skill now."]})},
 
-function(){return head(3,"Decide your time","The six weeks are fixed. The minutes are yours. Be honest about your university life.")
+function(){return head(3,"Decide your time","The length of your plan is set. The minutes are yours. Be honest about your university life.")
  +'<div class="free"><p><b>This is <mark>free time that you choose to give</mark>.</b> It is outside your homework and your classes. A small plan that you keep is better than a big plan that you stop.</p></div>'
  +'<div class="row">'+field("days","How many days a week?",{type:"number",chips:[1,2,3,4,5,6,7]})+field("mins","How many minutes each day?",{type:"number",chips:[5,10,15,20,25,30,45,60,90]})+'</div>'
  +'<div data-live="total"></div>'
@@ -278,26 +286,26 @@ function(){return head(3,"Decide your time","The six weeks are fixed. The minute
  +field("where","Where will I do it?",{multi:1,chips:["on the train","in the library","in my room","at a cafe","on campus","on the bus","in the student lounge","in an empty classroom","in the living room at home","in a park"]})
  +field("backup","If I miss a day, I will ...",{chips:["do it the next day.","do a shorter 5-minute version.","add 15 minutes on Sunday.","move it to the weekend.","study with a friend the next day.","start again the next week and not give up."]})},
 
-function(){var h=head(4,"Write your SMART goal","Write one goal for these six weeks. It is one small step toward your Future Me. Then check it with the five questions.")
+function(){var h=head(4,"Write your SMART goal","Write one goal for these "+NWD()+" weeks. It is one small step toward your Future Me. Then check it with the five questions. Every answer starts at No. Change it to Yes only when it is true.")
  +field("draft","My goal (first draft)",{area:1,rows:3,fold:"Show example goals for my goals and skills",chips:goalExamples(),hint:"The examples match the goals and skills you chose. Use one and change the numbers, or write your own."});
- SMART.forEach(function(g){h+='<section class="smart" data-smart="'+g.k+'"><h3><i>'+g.k+'</i>'+g.name+'</h3><p class="hint">'+g.def+'</p>'
-  +g.items.map(function(t,i){var key="c"+g.k+i,cv=S[key];return '<div class="yn"><p>'+esc(t)+'</p><div class="seg" role="group" aria-label="'+esc(t)+'" data-yn="'+key+'"><button type="button" data-v="y" aria-pressed="'+(cv==="y")+'">Yes</button><button type="button" data-v="n" aria-pressed="'+(cv==="n")+'">No</button></div></div>'}).join("")
+ SMART.forEach(function(g){h+='<section class="smart" data-smart="'+g.k+'"><h3><i>'+g.k+'</i>'+g.name+'</h3><p class="hint">'+tpl(g.def)+'</p>'
+  +g.items.map(function(t,i){t=tpl(t);var key="c"+g.k+i,cv=S[key];return '<div class="yn"><p>'+esc(t)+'</p><div class="seg" role="group" aria-label="'+esc(t)+'" data-yn="'+key+'"><button type="button" data-v="y" aria-pressed="'+(cv==="y")+'">Yes</button><button type="button" data-v="n" aria-pressed="'+(cv!=="y")+'">No</button></div></div>'}).join("")
   +'<div data-live="tip'+g.k+'"></div></section>'});
  h+='<section class="smart"><h3>My final SMART goal</h3><p class="hint">Rewrite your goal with everything you checked.</p>'
-  +field("final","In six weeks, I will ...",{area:1,rows:3})
+  +field("final","In "+NWD()+" weeks, I will ...",{area:1,rows:3})
   +'<div class="actions"><button type="button" class="btn link" data-act="copydraft">Use my first draft</button></div>'
   +field("because","This goal will help me become my Future Me because ...",{area:1,rows:2,fold:"Show ideas",chips:["I need this skill for my test score.","I will use this skill when I study abroad.","it is my weakest skill now.","it will give me more confidence.","I can use it to talk with people in my drawing."]})+'</section>';
  return h},
 
-function(){var h=head(5,"Give your six weeks a theme","A theme is a short title for your six weeks. Keep the shared theme, choose another one, or type your own.")
+function(){var h=head(5,"Give your "+NWD()+" weeks a theme","A theme is a short title for your "+NWD()+" weeks. Keep the shared theme, choose another one, or type your own.")
  +field("theme","My theme",{chips:[THEME_DEFAULT].concat(pool(THEMES))})
  +'<div class="field"><span class="qlabel">The focus of each week</span><span class="hint">You can keep these or change them.</span></div>';
- for(var i=1;i<=6;i++)h+=field("focus"+i,"Week "+i+" ("+weekRange(i)+")",{hint:FOCUSQ[i-1],fold:"Show ideas",chips:[FOCUS[i-1],"Vocabulary","Listening","Speaking","Reading","Writing","Pronunciation","Practice test","Review"]});
+ for(var i=1;i<=NW();i++)h+=field("focus"+i,"Week "+i+" ("+weekRange(i)+")",{hint:FQ[focusList()[i-1]],fold:"Show ideas",chips:[focusList()[i-1],"Vocabulary","Listening","Speaking","Reading","Writing","Pronunciation","Practice test","Review"]});
  return h},
 
 function(){var w=week,h=head(6,"Plan each week","Plan two or three activities for each week. Activity 1 is always your learning community meeting. You choose Activity 2. Activity 3 is extra. Your plan is graded on its detail, so write what, when, and how long.")+PDC
  +'<div class="tabs" role="group" aria-label="Weeks">';
- for(var i=1;i<=6;i++)h+='<button type="button" data-week="'+i+'" aria-pressed="'+(i===w)+'">Week '+i+(dscore(i)===4?'<span class="dot" title="detailed"></span>':'')+'</button>';
+ for(var i=1;i<=NW();i++)h+='<button type="button" data-week="'+i+'" aria-pressed="'+(i===w)+'">Week '+i+(dscore(i)===4?'<span class="dot" title="detailed"></span>':'')+'</button>';
  h+='</div><div><h3>Week '+w+': '+esc(v("focus"+w))+'</h3><p class="hint">'+weekRange(w)+(timeLine()?' · My time: '+esc(timeLine()):'')+'</p></div>'
  +'<div class="stage">Plan <small>Write this now.</small></div>'
  +'<div class="act fixed"><span class="n">Activity 1</span><b>'+LC+'</b><p class="hint">'+LCNOTE+'</p></div>'
@@ -308,17 +316,17 @@ function(){var w=week,h=head(6,"Plan each week","Plan two or three activities fo
  +'<div class="stage">Check <small>Decide now how you will check. Write the result at the end of the week.</small></div>'
  +field("w"+w+"check","How I will check my progress",{fold:"Show ideas",chips:CHECKS})
  +'<div data-live="detail"></div>'
- +'<div class="actions">'+(w===1?'<button type="button" class="btn ghost" data-act="copyweek">Copy Week 1 to Weeks 2 to 6</button>':'')+(w<6?'<button type="button" class="btn ghost" data-week="'+(w+1)+'">Go to Week '+(w+1)+'</button>':'')+'</div>'
+ +'<div class="actions">'+(w===1?'<button type="button" class="btn ghost" data-act="copyweek">Copy Week 1 to Weeks 2 to '+NW()+'</button>':'')+(w<NW()?'<button type="button" class="btn ghost" data-week="'+(w+1)+'">Go to Week '+(w+1)+'</button>':'')+'</div>'
  ;
  return h},
 
 function(){function dd(t,val){return '<dt>'+esc(t)+'</dt><dd>'+(val?esc(val):'<span class="empty">not written yet</span>')+'</dd>'}
  var miss=[];if(!v("name"))miss.push("your name");if(!v("final"))miss.push("your final SMART goal");if(!num("days")||!num("mins"))miss.push("your time");
- var thin=0;for(var i=1;i<=6;i++)if(dscore(i)<4)thin++;if(thin)miss.push("some detail in "+thin+" week"+(thin>1?"s":""));
+ var thin=0;for(var i=1;i<=NW();i++)if(dscore(i)<4)thin++;if(thin)miss.push("some detail in "+thin+" week"+(thin>1?"s":""));
  var h=head(7,"Check and download","Read your plan. Go back to change anything. Then download it as a Word file and keep editing it each week.")
  +(miss.length?'<p class="note">Still empty: '+miss.join(", ")+'. You can also fill these in later in Word.</p>':'')
- +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("Six weeks",startDate()?startDate()+" to "+endDate():"")+dd("My goals, most wanted first",[goalsLine("; "),v("gdetail")].filter(Boolean).join(" · "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+'</dl>'
- +'<div class="field"><span class="qlabel">Detail check</span><span class="hint">Your plan is graded on its detail. A week with 4 of 4 has an activity, days and times, a number, and a way to check.</span><table class="dt"><tr><th>Week</th><th>Activity 2</th><th>Detail</th></tr>'+[1,2,3,4,5,6].map(function(i){return '<tr><td>Week '+i+'</td><td>'+(S["w"+i+"a2"]?esc(S["w"+i+"a2"]):'<span class="empty">not written yet</span>')+'</td><td>'+dscore(i)+' of 4</td></tr>'}).join("")+'</table></div>'
+ +'<dl class="sum">'+dd("Name and class",[v("name"),v("cls")].filter(Boolean).join(", "))+dd("My "+NW()+" weeks",startDate()?startDate()+" to "+endDate():"")+dd("My goals, most wanted first",[goalsLine("; "),v("gdetail")].filter(Boolean).join(" · "))+dd("Skill",v("skill"))+dd("My free time",timeLine())+dd("My SMART goal",v("final")||v("draft"))+dd("Theme",v("theme"))+'</dl>'
+ +'<div class="field"><span class="qlabel">Detail check</span><span class="hint">Your plan is graded on its detail. A week with 4 of 4 has an activity, days and times, a number, and a way to check.</span><table class="dt"><tr><th>Week</th><th>Activity 2</th><th>Detail</th></tr>'+p8().map(function(i){return '<tr><td>Week '+i+'</td><td>'+(S["w"+i+"a2"]?esc(S["w"+i+"a2"]):'<span class="empty">not written yet</span>')+'</td><td>'+dscore(i)+' of 4</td></tr>'}).join("")+'</table></div>'
  +'<div class="actions"><button type="button" class="btn" data-act="download" id="dl">Download Word file</button><button type="button" class="btn ghost" data-act="copy">Copy my plan as text</button></div>'
  +'<p class="status" id="status" role="status"></p><textarea id="copyout" hidden readonly aria-label="My plan as text"></textarea>'
  +'<p class="hint">After you download: each week, fill in the Do table and the Check table in your Word file. Your plan is graded on its detail and on how well you follow it.</p>';
@@ -327,14 +335,15 @@ function(){function dd(t,val){return '<dt>'+esc(t)+'</dt><dd>'+(val?esc(val):'<s
 
 function live(){
   var e=document.querySelector('[data-live="end"]');if(e)e.textContent=endDate()||"Choose a start date";
+  var eh=document.querySelector('[data-live="endhint"]');if(eh)eh.textContent=NW()+" weeks after the start";
   var t=document.querySelector('[data-live="total"]');
   if(t){var d=num("days"),m=num("mins"),h="";
-    if(d&&m){h='<div class="total"><span><b>'+(d*m)+'</b> minutes each week</span><span><b>'+(d*m*6)+'</b> minutes in six weeks</span></div>';
+    if(d&&m){h='<div class="total"><span><b>'+(d*m)+'</b> minutes each week</span><span><b>'+(d*m*NW())+'</b> minutes in '+NWD()+' weeks</span></div>';
       if(d>=7||d*m>300)h+='<p class="note">This is a big plan. Last semester, many students wrote that studying every day was too difficult. Can you keep this in your busiest week? If you are not sure, choose fewer days.</p>';}
     t.innerHTML=h}
   var dc=document.querySelector('[data-live="detail"]');
   if(dc){var dl=detail(week),sc=dscore(week);dc.innerHTML='<ul class="dcheck"><li class="on" style="list-style:none"><b>Detail check for Week '+week+': '+sc+' of 4</b></li>'+dl.map(function(x){return '<li class="'+(x[1]?"on":"")+'">'+x[0]+'</li>'}).join("")+'</ul>'}
-  SMART.forEach(function(g){var el=document.querySelector('[data-live="tip'+g.k+'"]');if(!el)return;var no=false;g.items.forEach(function(_,i){if(S["c"+g.k+i]==="n")no=true});
+  SMART.forEach(function(g){var el=document.querySelector('[data-live="tip'+g.k+'"]');if(!el)return;var no=false;g.items.forEach(function(_,i){if(S["c"+g.k+i]!=="y")no=true});
     var h=no?'<p class="note">'+esc(g.tip)+'</p>':"";
     if(g.k==="M"&&v("draft")&&!/\d/.test(v("final")||v("draft")))h+='<p class="note">I cannot find a number in your goal yet. Add minutes, words, pages, times, or a score.</p>';
     el.innerHTML=h});
@@ -362,12 +371,14 @@ function syncChips(box,k){var multi=box.dataset.multi,cur=String(S[k]==null?"":S
 var resetArmed=false;
 main.addEventListener("click",function(e){
   var c=e.target.closest(".chip");
-  if(c&&!c.dataset.goal){var box=c.parentNode,k=box.dataset.for,val=c.dataset.val;
+  if(c&&!c.dataset.goal&&!c.dataset.len){var box=c.parentNode,k=box.dataset.for,val=c.dataset.val;
     if(box.dataset.multi){var nl=box.dataset.nl,mx=+box.dataset.max||0,it=list(S[k],nl),ix=it.indexOf(val),fld=box.closest(".field"),mm=fld&&fld.querySelector(".maxmsg");
       if(ix>=0)it.splice(ix,1);else if(mx&&it.length>=mx){if(fld&&!mm){mm=document.createElement("p");mm.className="note maxmsg";mm.textContent="You already have "+mx+". Click a chosen answer to remove it first.";box.after(mm)}return}else it.push(val);
       if(mm&&it.length<mx)mm.remove();S[k]=it.join(nl?"\n":", ")}
     else S[k]=(String(S[k])===val)?"":val;
     var inp=document.getElementById("f-"+k);if(inp)inp.value=S[k];save();syncChips(box,k);live();return}
+  var lb=e.target.closest("[data-len]");
+  if(lb){S.weeks=lb.dataset.len;if(week>NW())week=1;save();render(false);return}
   var gb=e.target.closest("[data-goal]");
   if(gb){var gl=goals().slice(),gv=gb.dataset.goal,gi=gl.indexOf(gv);gmsg="";
     if(gi>=0)gl.splice(gi,1);else if(gl.length>=GMAX)gmsg="You already have "+GMAX+" goals. Click a chosen goal to remove it first.";else gl.push(gv);
@@ -381,36 +392,36 @@ main.addEventListener("click",function(e){
     if(!gv2)gmsg="Type your goal in the box first.";else if(gl2.indexOf(gv2)>=0)gmsg="This goal is already in your list.";else if(gl2.length>=GMAX)gmsg="You already have "+GMAX+" goals. Click a chosen goal to remove it first.";else gl2.push(gv2);
     S.goals=gl2;save();render(false)}
   else if(act==="copydraft"){S.final=v("draft");save();document.getElementById("f-final").value=S.final;live()}
-  else if(act==="copyweek"){for(var i=2;i<=6;i++)["a2","a3","when","check"].forEach(function(f){if(!S["w"+i+f])S["w"+i+f]=S["w1"+f]||""});save();render(false);a=main.querySelector('[data-act="copyweek"]');if(a)a.textContent="Copied to empty weeks"}
+  else if(act==="copyweek"){for(var i=2;i<=NW();i++)["a2","a3","when","check"].forEach(function(f){if(!S["w"+i+f])S["w"+i+f]=S["w1"+f]||""});save();render(false);a=main.querySelector('[data-act="copyweek"]');if(a)a.textContent="Copied to empty weeks"}
   else if(act==="example"){S=example();save();render(false)}
   else if(act==="reset"){if(!resetArmed){resetArmed=true;a.textContent="Click again to delete all my answers";return}resetArmed=false;S={};save();render(false)}
   else if(act==="download")download();
   else if(act==="copy")copyText();
 });
 
-function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",goals:["Get an IELTS score","Join an exchange program"],gdetail:"IELTS 6.0",skill:"speaking",why:"I need it for my test score.\nI need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:GOALS.ielts[0],final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
+function example(){var e={_step:0,name:"Example Student",cls:"Class 3",start:v("start"),q1:"I am studying at a university abroad.",q2:"talking with people, studying abroad",q3:"confident, curious",q4:"I cannot speak English without stopping.",goals:["Get an IELTS score","Join an exchange program"],gdetail:"IELTS 6.0",skill:"speaking",why:"I need it for my test score.\nI need it to live and study abroad.",days:"3",mins:"20",when:"on the train, before bed",where:"on the train, in my room",backup:"do it the next day.",draft:tpl(GOALS.ielts[0]),weeks:"6",final:"Record 12 two-minute talks for IELTS Speaking Part 2 in 6 weeks (2 each week) and listen to each one.",because:"I need IELTS 6.0 to study abroad, and speaking is my weakest skill.",theme:"Speak for Two Minutes"};
   SMART.forEach(function(g){g.items.forEach(function(_,i){e["c"+g.k+i]="y"})});
   var a2=["Record a 2-minute talk and listen to it","Record a 2-minute talk and listen to it","Read one sample answer and note useful phrases","Record a 2-minute talk and listen to it","Do a full speaking practice with a friend","Record my best 2-minute talk and compare it with Week 1"];
   for(var i=1;i<=6;i++){e["w"+i+"a2"]=a2[i-1];e["w"+i+"a3"]=i%2?"Learn 20 topic words":"";e["w"+i+"when"]="Monday, Wednesday, Friday, 20 minutes";e["w"+i+"check"]="I will record myself and listen."}
   return e}
 
 /* ---------- plan as plain data ---------- */
-function plan(){var p={title:"My 6-Week English Learning Plan",who:[v("name")&&"Name: "+v("name"),v("cls")&&"Class: "+v("cls")].filter(Boolean).join("    ")||"Name:                    Class:",
+function plan(){var p={title:"My "+NW()+"-Week English Learning Plan",who:[v("name")&&"Name: "+v("name"),v("cls")&&"Class: "+v("cls")].filter(Boolean).join("    ")||"Name:                    Class:",
   dates:startDate()?startDate()+" to "+endDate():"",theme:v("theme"),
   part1:[["One year from now, where am I and what am I doing?",v("q1")],["How am I using English then?",v("q2")],["What kind of person am I then? How do I feel?",v("q3")],["What can my Future Me do that I cannot do yet today?",v("q4")]],
   part2:[["My goals for English (most wanted first)",goalsLine("\n")],["More exactly, I want",v("gdetail")],["The skill I need most",v("skill")],["Why this skill is important for the future me",v("why")]],
   time:[["My free time each week",timeLine()],["When",v("when")],["Where",v("where")],["If I miss a day, I will ...",v("backup")]],
   draft:v("draft"),final:v("final"),because:v("because"),weeks:[]};
-  p.checks=SMART.map(function(g){return {k:g.k,name:g.name,rows:g.items.map(function(t,i){var c=S["c"+g.k+i];return [t,c==="y"?"Yes":c==="n"?"No":""]})}});
-  for(var i=1;i<=6;i++)p.weeks.push({n:i,range:weekRange(i),focus:v("focus"+i),a2:v("w"+i+"a2"),a3:v("w"+i+"a3"),when:v("w"+i+"when"),check:v("w"+i+"check")});
+  p.checks=SMART.map(function(g){return {k:g.k,name:g.name,rows:g.items.map(function(t,i){var c=S["c"+g.k+i];return [tpl(t),c==="y"?"Yes":"No"]})}});
+  for(var i=1;i<=NW();i++)p.weeks.push({n:i,range:weekRange(i),focus:v("focus"+i),a2:v("w"+i+"a2"),a3:v("w"+i+"a3"),when:v("w"+i+"when"),check:v("w"+i+"check")});
   return p}
 
-function planText(){var p=plan(),o=[p.title,p.who,p.dates?"Six weeks: "+p.dates:"",p.theme?"Theme: "+p.theme:"","","This plan is my choice. I do it in my free time, outside homework and classes.","It is graded on (1) how detailed my plan is and (2) how well I follow it: Plan, Do, Check.","","PART 1: MY FUTURE ME"];
+function planText(){var p=plan(),o=[p.title,p.who,p.dates?NW()+" weeks: "+p.dates:"",p.theme?"Theme: "+p.theme:"","","This plan is my choice. I do it in my free time, outside homework and classes.","It is graded on (1) how detailed my plan is and (2) how well I follow it: Plan, Do, Check.","","PART 1: MY FUTURE ME"];
   p.part1.forEach(function(r){o.push(r[0],"  "+r[1])});o.push("","PART 2: MY DIRECTION");p.part2.forEach(function(r){o.push(r[0]+": "+r[1])});
   o.push("","PART 3: MY TIME");p.time.forEach(function(r){o.push(r[0]+": "+r[1])});
   o.push("","PART 4: MY SMART GOAL","First draft: "+p.draft,"Final goal: "+p.final,"This goal will help me become my Future Me because "+p.because,"","PART 5: MY WEEKLY PLAN");
   p.weeks.forEach(function(w){o.push("","Week "+w.n+" ("+w.range+"): "+w.focus,"  Activity 1: "+LC,"  Activity 2: "+w.a2,"  Activity 3 (extra): "+w.a3,"  Days and times: "+w.when,"  How I will check: "+w.check,"  DO (what I really did): ","  CHECK:");REFLECT.forEach(function(q){o.push("    "+q)})});
-  o.push("","PART 6: LOOKING BACK");LOOKBACK.forEach(function(q){o.push("  "+q)});return o.join("\n")}
+  o.push("","PART 6: LOOKING BACK");LOOKBACK.forEach(function(q){o.push("  "+tpl(q))});return o.join("\n")}
 
 /* ---------- Word (.docx) ---------- */
 function x(s){return String(s==null?"":s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
@@ -428,8 +439,8 @@ function table(rows,widths,o){o=o||{};var b=function(n){return '<w:'+n+' w:val="
 function documentXml(){var p=plan(),b="";
   b+=para(p.title,{style:"Title"});
   b+=para(p.who);
-  b+=para("Six weeks: "+(p.dates||"            to            ")+(p.theme?"    Theme: "+p.theme:""));
-  b+=para([run("This plan is my choice. ",{b:1}),run("I work on it in my free time. It is outside my homework and my classes. The six weeks are fixed, and I decide how many minutes I give.")],{fill:"FFF1B8"});
+  b+=para(NW()+" weeks: "+(p.dates||"            to            ")+(p.theme?"    Theme: "+p.theme:""));
+  b+=para([run("This plan is my choice. ",{b:1}),run("I work on it in my free time. It is outside my homework and my classes. The plan is "+NWD()+" weeks long, and I decide how many minutes I give.")],{fill:"FFF1B8"});
   b+=para("How this plan is graded",{style:"Heading2"});
   b+=table([["1. Detail","How detailed is my plan? It says what I will do, on which days, for how many minutes, and how I will check."],["2. Following the plan","How well do I follow my plan? Each week I Plan, Do, and Check. I record what I really did and compare it with my plan."]],[2600,W-2600],{labelCol:1});
   b+=table([["PLAN","DO","CHECK"],["Before the week: write what, when, how long, and how I will check.","During the week: follow the plan and record what I really did.","After the week: compare plan and result, then change next week's plan."]],[3008,3009,3009],{header:1});
@@ -444,7 +455,7 @@ function documentXml(){var p=plan(),b="";
   b+=table([["My first draft",p.draft]],[2200,W-2200],{labelCol:1});
   p.checks.forEach(function(g){b+=para(g.k+": "+g.name,{style:"Heading2"});b+=table(g.rows,[W-1300,1300],{})});
   b+=para("My final SMART goal",{style:"Heading2"});
-  b+=table([["In six weeks, I will ...",p.final],["This goal will help me become my Future Me because ...",p.because]],[3200,W-3200],{labelCol:1,minH:700});
+  b+=table([["In "+NWD()+" weeks, I will ...",p.final],["This goal will help me become my Future Me because ...",p.because]],[3200,W-3200],{labelCol:1,minH:700});
   b+=para("Part 5: My weekly plan",{style:"Heading1",pb:1});
   b+=para("Each week I plan two or three activities. Activity 1 is always my learning community meeting. My learning community has its own plan and schedule.");
   b+=para("Every week has three parts. PLAN is written before the week. DO is filled in during the week. CHECK is written at the end of the week. An honest record is better than a perfect one.");
@@ -460,8 +471,8 @@ function documentXml(){var p=plan(),b="";
     b+=para("CHECK (end of the week)",{b:1,color:"2A4A9A"});
     b+=table(REFLECT.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:400})});
   b+=para("Part 6: Looking back",{style:"Heading1",pb:1});
-  b+=para("Answer after Week 6. Think about your Future Me one more time.");
-  b+=table(LOOKBACK.map(function(q){return [q,""]}),[3900,W-3900],{labelCol:1,minH:700});
+  b+=para("Answer after Week "+NW()+". Think about your Future Me one more time.");
+  b+=table(LOOKBACK.map(function(q){return [tpl(q),""]}),[3900,W-3900],{labelCol:1,minH:700});
   return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+b+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>'}
 var STYLES='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="Yu Gothic" w:cs="Arial"/><w:sz w:val="21"/><w:szCs w:val="21"/><w:lang w:val="en-US" w:eastAsia="ja-JP"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="140" w:line="276" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>'
  +'<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style>'
@@ -477,7 +488,7 @@ function buildDocx(){var zz=new JSZip(),z={file:function(n,d){zz.file(n,d,{creat
   return zz.generateAsync({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",compression:"DEFLATE"})}
 window.__buildDocx=buildDocx;window.__planText=planText;
 
-function fileName(){var n=String(v("name")||"").trim().replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g,"-");return "6-week-plan"+(n?"-"+n:"")+".docx"}
+function fileName(){var n=String(v("name")||"").trim().replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g,"-");return NW()+"-week-plan"+(n?"-"+n:"")+".docx"}
 function say(t){var s=document.getElementById("status");if(s)s.textContent=t}
 function linkSave(blob,name){var u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}
 var saver=(window.claude&&window.claude.use)?window.claude.use("downloads").catch(function(){return null}):null;
